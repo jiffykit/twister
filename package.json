@@ -1,0 +1,49 @@
+{
+  "name": "complex-audio-transformer",
+  "version": "1.0.0",
+  "description": "A sophisticated web-based audio processing application that applies complex mathematical transformations to audio signals in real-time",
+  "main": "index.html",
+  "scripts": {
+    "start": "python -m http.server 8000",
+    "serve": "npx http-server -c-1",
+    "dev": "npx live-server --port=8000"
+  },
+  "keywords": [
+    "audio",
+    "processing",
+    "mathematics",
+    "complex",
+    "fft",
+    "fractal",
+    "dsp",
+    "web-audio",
+    "signal-processing"
+  ],
+  "author": "Complex Audio Transformer Team",
+  "license": "MIT",
+  "dependencies": {
+    "mathjs": "^11.11.2"
+  },
+  "devDependencies": {
+    "http-server": "^14.1.1",
+    "live-server": "^1.2.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/your-username/complex-audio-transformer.git"
+  },
+  "bugs": {
+    "url": "https://github.com/your-username/complex-audio-transformer/issues"
+  },
+  "homepage": "https://github.com/your-username/complex-audio-transformer#readme",
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "browserslist": [
+    "last 3 versions",
+    "Chrome >= 66",
+    "Firefox >= 60",
+    "Safari >= 12",
+    "Edge >= 79"
+  ]
+}
