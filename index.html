@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ultimate Complex Audio Transformer</title>
+    <style>
+        body {
+            background: linear-gradient(135deg, #0a0a0a, #1a1a2e, #16213e);
+            color: #fff;
+            font-family: 'Segoe UI', sans-serif;
+            margin: 0;
+            padding: 10px;
+            min-height: 100vh;
+            overflow: hidden;
+            /* Prevent scrolling */
+        }
+
+        .container {
+            max-width: 1400px;
+            height: calc(100vh - 20px);
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.03);
+            padding: 15px;
+            border-radius: 15px;
+            backdrop-filter: blur(15px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        h1 {
+            font-size: 1.8em;
+            margin-bottom: 15px;
+            text-align: center;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
+        }
+
+        .controls-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 10px;
+            margin-bottom: 10px;
+            flex: 1;
+            overflow: hidden;
+        }
+
+        .control-group {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .control-group:hover {
+            background: rgba(255, 255, 255, 0.08);
+            transform: translateY(-2px);
+        }
+
+        .full-width {
+            grid-column: 1 / -1;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: #e0e0e0;
+            font-size: 0.95em;
+        }
+
+        input[type="file"] {
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px dashed rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+            color: #fff;
+            width: 100%;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        input[type="file"]:hover,
+        .file-drop-zone:hover {
+            border-color: rgba(255, 255, 255, 0.5);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .file-drop-zone {
+            position: relative;
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px dashed rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .file-drop-zone.dragover {
+            border-color: #4ecdc4;
+            background: rgba(78, 205, 196, 0.1);
+            transform: scale(1.02);
+        }
+
+        .file-drop-text {
+            color: #e0e0e0;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .file-drop-hint {
+            color: #999;
+            font-size: 12px;
+        }
+
+        input[type="range"] {
+            width: 100%;
+            margin: 10px 0;
+            -webkit-appearance: none;
+            appearance: none;
+            height: 8px;
+            background: linear-gradient(90deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4);
+            border-radius: 5px;
+            outline: none;
+            opacity: 0.8;
+            transition: opacity 0.3s;
+        }
+
+        input[type="range"]:hover {
+            opacity: 1;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            background: #fff;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+            transition: all 0.3s ease;
+        }
+
+        input[type="range"]::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
+        }
+
+        select {
+            padding: 12px 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            color: #fff;
+            font-size: 0.95em;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+
+        select:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        select option {
+            background: #222;
+            color: #fff;
+            padding: 8px;
+        }
+
+        .function-grid {
+            display: none;
+            /* Hide the grid, we'll use a dropdown */
+        }
+
+        .function-select {
+            padding: 12px 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            color: #fff;
+            font-size: 0.95em;
+            width: 100%;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .function-select:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .function-select option {
+            background: #222;
+            color: #fff;
+            padding: 8px;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin: 30px 0;
+        }
+
+        button {
+            padding: 15px 30px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border: none;
+            border-radius: 25px;
+            color: #fff;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(102, 126, 234, 0.6);
+        }
+
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .stop-btn {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+        }
+
+        .stop-btn:hover {
+            box-shadow: 0 6px 25px rgba(255, 107, 107, 0.6);
+        }
+
+        .realtime-btn {
+            background: linear-gradient(135deg, #4ecdc4, #44a08d);
+        }
+
+        .realtime-btn:hover {
+            box-shadow: 0 6px 25px rgba(78, 205, 196, 0.6);
+        }
+
+        #status {
+            margin: 20px 0;
+            padding: 15px;
+            border-radius: 10px;
+            font-weight: 500;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .error {
+            background: rgba(255, 51, 51, 0.2);
+            border: 1px solid #ff3333;
+        }
+
+        .success {
+            background: rgba(51, 255, 51, 0.2);
+            border: 1px solid #33ff33;
+        }
+
+        .info {
+            background: rgba(51, 51, 255, 0.2);
+            border: 1px solid #3333ff;
+        }
+
+        .value-display {
+            font-weight: 700;
+            color: #4ecdc4;
+            font-size: 1.1em;
+        }
+
+        .slider-info {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85em;
+            color: #888;
+            margin-top: 5px;
+        }
+
+        .memory-info {
+            font-size: 0.9em;
+            color: #888;
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .visualizer {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            padding: 15px;
+            margin: 20px 0;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        canvas {
+            width: 100%;
+            height: 120px;
+            border-radius: 8px;
+            background: linear-gradient(45deg, #0a0a0a, #1a1a2e);
+        }
+
+        .compact-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 10px;
+        }
+
+        .compact-control {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .compact-control label {
+            margin-bottom: 5px;
+            font-size: 0.85em;
+        }
+
+        .toggle-container {
+            display: flex;
+            gap: 2px;
+            margin-top: 5px;
+        }
+
+        .toggle-btn {
+            flex: 1;
+            padding: 8px 4px;
+            font-size: 0.8em;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+            color: #fff;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .toggle-btn:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .toggle-btn.active {
+            background: linear-gradient(135deg, #4ecdc4, #44a08d);
+            box-shadow: 0 2px 8px rgba(78, 205, 196, 0.4);
+        }
+
+        .slider-info {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.75em;
+            color: #888;
+            margin-top: 2px;
+        }
+
+        @media (max-width: 768px) {
+            .controls-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .function-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .button-group {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        /* Dual-handle slider styling */
+        .dual-slider-container {
+            position: relative;
+            margin: 10px 0;
+        }
+
+        .main-slider {
+            width: 100%;
+            position: relative;
+            z-index: 1;
+        }
+
+        .mod-handle {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: transparent;
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .mod-handle::-webkit-slider-thumb {
+            background: linear-gradient(45deg, #ff6b6b, #ff8e8e);
+            border: 2px solid #fff;
+            box-shadow: 0 0 8px rgba(255, 107, 107, 0.6);
+            pointer-events: auto;
+            cursor: pointer;
+            transform: scale(0.9);
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+        }
+
+        .mod-handle::-webkit-slider-thumb:hover {
+            background: linear-gradient(45deg, #ff5252, #ff7979);
+            box-shadow: 0 0 12px rgba(255, 107, 107, 0.8);
+            transform: scale(1.0);
+        }
+
+        .modulation-range-display {
+            font-size: 0.85em;
+            color: #ff6b6b;
+            margin-top: 5px;
+            text-align: center;
+            opacity: 0.9;
+            font-weight: 500;
+            background: rgba(255, 107, 107, 0.1);
+            border-radius: 4px;
+            padding: 2px 6px;
+        }
+
+        /* Show mod handles only when modulation is enabled */
+        .modulation-disabled .mod-handle {
+            display: none;
+        }
+
+        .modulation-disabled .modulation-range-display {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>🎧 Ultimate Complex Audio Transformer</h1>
+
+        <div class="controls-grid">
+            <div class="control-group">
+                <label for="fileInput">Audio File:</label>
+                <div class="file-drop-zone" id="fileDropZone">
+                    <div class="file-drop-text">🎵 Drop audio file here or click to browse</div>
+                    <div class="file-drop-hint">Supports: WAV, MP3, OGG, WebM, M4A, AAC, FLAC</div>
+                    <input type="file" id="fileInput" accept="audio/*"
+                        style="opacity: 0; position: absolute; width: 100%; height: 100%; cursor: pointer;">
+                </div>
+                <button id="testAudioBtn"
+                    style="margin-top: 8px; padding: 6px 12px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.3); border-radius: 5px; color: #fff; cursor: pointer; font-size: 0.85em;">Generate
+                    Test Audio</button>
+            </div>
+
+            <div class="control-group">
+                <label for="functionSelect">Mathematical Function:</label>
+                <select id="functionSelect" class="function-select">
+                    <!-- Basic Operations -->
+                    <optgroup label="🔢 Basic Operations">
+                        <option value="power">Power (f^n) - Raises frequency to a power, expanding harmonic spacing
+                        </option>
+                        <option value="sqrt">Square Root - Compresses frequency spectrum, bringing higher harmonics
+                            closer</option>
+                        <option value="cbrt">Cube Root - Gentle compression of frequency spectrum</option>
+                        <option value="nroot">N-th Root - Adjustable frequency compression based on amount</option>
+                        <option value="square">Square - Expands frequency spectrum, doubling harmonic distances</option>
+                        <option value="cube">Cube - Dramatic frequency expansion, tripling harmonic distances</option>
+                        <option value="inverse">Reciprocal (1/z) - Inverts frequency spectrum, low becomes high</option>
+                    </optgroup>
+
+                    <!-- Logarithmic & Exponential -->
+                    <optgroup label="📈 Logarithmic & Exponential">
+                        <option value="log">Natural Log - Dramatically compresses high frequencies</option>
+                        <option value="log10">Log Base 10 - Even compression across frequency decades</option>
+                        <option value="log2">Log Base 2 - Transforms octaves to linear spacing</option>
+                        <option value="exp">Natural Exponential - Explosive high frequency expansion</option>
+                        <option value="exp2">Base-2 Exponential - Doubles frequency with each octave</option>
+                        <option value="exp10">Base-10 Exponential - Extreme high frequency emphasis</option>
+                    </optgroup>
+
+                    <!-- Trigonometric -->
+                    <optgroup label="🌊 Trigonometric">
+                        <option value="sin">Sine - Warps frequencies in wave-like pattern</option>
+                        <option value="cos">Cosine - Similar to sine but phase-shifted warping</option>
+                        <option value="tan">Tangent - Creates resonant peaks at periodic intervals</option>
+                        <option value="asin">Arc Sine - Compresses extreme frequencies, expands mid-range</option>
+                        <option value="acos">Arc Cosine - Inverse cosine warping of frequency space</option>
+                        <option value="atan">Arc Tangent - Smooth compression of entire spectrum</option>
+                    </optgroup>
+
+                    <!-- Hyperbolic -->
+                    <optgroup label="📐 Hyperbolic">
+                        <option value="sinh">Hyperbolic Sine - Exponential frequency expansion, symmetric</option>
+                        <option value="cosh">Hyperbolic Cosine - Even stronger exponential expansion</option>
+                        <option value="tanh">Hyperbolic Tangent - Frequency compression with soft limiting</option>
+                        <option value="asinh">Inverse Hyperbolic Sine - Logarithmic-like compression</option>
+                        <option value="acosh">Inverse Hyperbolic Cosine - Creates frequency bands</option>
+                        <option value="atanh">Inverse Hyperbolic Tangent - Strong mid-frequency emphasis</option>
+                    </optgroup>
+
+                    <!-- Famous Physics Equations -->
+                    <optgroup label="⚛️ Physics Equations">
+                        <option value="schrodinger">Schrödinger Wave - Probabilistic frequency transformation</option>
+                        <option value="heisenberg">Heisenberg Uncertainty - Frequency-time smearing effect</option>
+                        <option value="einstein_mass_energy">E=mc² - Frequency squaring with relativistic scaling
+                        </option>
+                        <option value="planck_radiation">Planck Radiation - Black body frequency distribution</option>
+                        <option value="maxwell_boltzmann">Maxwell-Boltzmann - Statistical frequency redistribution
+                        </option>
+                        <option value="wave_equation">Wave Equation - Spatial-temporal frequency mapping</option>
+                        <option value="lorentz_factor">Lorentz Factor - Relativistic frequency shifting</option>
+                        <option value="schwarzschild">Schwarzschild Radius - Gravitational frequency warping</option>
+                    </optgroup>
+
+                    <!-- Special Functions -->
+                    <optgroup label="🔬 Special Functions">
+                        <option value="gamma">Gamma Function - Extends factorial to complex frequencies</option>
+                        <option value="zeta">Riemann Zeta - Prime-based frequency transformation</option>
+                        <option value="bessel_j0">Bessel J₀ - Cylindrical wave frequency modulation</option>
+                        <option value="bessel_y0">Bessel Y₀ - Complementary cylindrical modulation</option>
+                        <option value="erf">Error Function - Statistical frequency distribution</option>
+                        <option value="airy_ai">Airy Function - Quantum-mechanical frequency bending</option>
+                    </optgroup>
+
+                    <!-- Fractals & Chaos -->
+                    <optgroup label="🌀 Fractals & Chaos">
+                        <option value="mandelbrot">Mandelbrot Set - Self-similar frequency clusters</option>
+                        <option value="julia">Julia Set - Parameter-dependent frequency patterns</option>
+                        <option value="burning_ship">Burning Ship - Folded self-similar frequency structure</option>
+                        <option value="newton_raphson">Newton Fractal - Frequency root-finding patterns</option>
+                        <option value="logistic_map">Logistic Map - Chaotic frequency bifurcation</option>
+                        <option value="henon_map">Hénon Map - 2D chaotic frequency attractor</option>
+                        <option value="lorenz_attractor">Lorenz Attractor - Weather-like frequency chaos</option>
+                    </optgroup>
+
+                    <!-- Geometric Transformations -->
+                    <optgroup label="📐 Geometric">
+                        <option value="mobius">Möbius Transform - Circular frequency inversion</option>
+                        <option value="joukowsky">Joukowsky Transform - Airfoil-like frequency mapping</option>
+                        <option value="cayley">Cayley Transform - Maps frequency line to unit circle</option>
+                        <option value="schwarz_christoffel">Schwarz-Christoffel - Polygon frequency mapping</option>
+                    </optgroup>
+
+                    <!-- Spirals -->
+                    <optgroup label="🌪️ Spirals">
+                        <option value="spiral">Logarithmic Spiral - Frequency spiraling outward</option>
+                        <option value="fibonacci_spiral">Fibonacci Spiral - Golden ratio frequency spacing</option>
+                        <option value="archimedean_spiral">Archimedean Spiral - Linear spiral frequency shift</option>
+                        <option value="fermat_spiral">Fermat Spiral - Square-root-based frequency spiral</option>
+                        <option value="hyperbolic_spiral">Hyperbolic Spiral - Inverse radius frequency mapping</option>
+                    </optgroup>
+
+                    <!-- Wave Functions -->
+                    <optgroup label="🌊 Wave Functions">
+                        <option value="wave">Wave Interference - Frequency combing with interference</option>
+                        <option value="ripple">Ripple Effect - Concentric frequency rings</option>
+                        <option value="standing_wave">Standing Wave - Frequency nodes and anti-nodes</option>
+                        <option value="doppler_effect">Doppler Effect - Moving source frequency shifts</option>
+                        <option value="chirp">Chirp Function - Frequency sweep transformation</option>
+                        <option value="sinc_function">Sinc Function - Sampling-based frequency comb</option>
+                    </optgroup>
+
+                    <!-- Stereo Panning Effects -->
+                    <optgroup label="🎧 Stereo Panning">
+                        <option value="stereo_real_imag">Real/Imaginary Split - Complex parts to L/R channels</option>
+                        <option value="stereo_mag_phase">Magnitude/Phase Split - Polar components to L/R</option>
+                        <option value="stereo_rotation">Complex Rotation - Rotating frequency stereo field</option>
+                        <option value="stereo_spiral_pan">Spiral Panning - Frequency-dependent stereo panning</option>
+                        <option value="stereo_doppler_pan">Doppler Panning - Moving source stereo illusion</option>
+                    </optgroup>
+
+                    <!-- Quantum & Exotic -->
+                    <optgroup label="🚀 Quantum & Exotic">
+                        <option value="quantum_harmonic">Quantum Harmonic - Discrete energy level frequency mapping
+                        </option>
+                        <option value="hydrogen_orbital">Hydrogen Orbital - Electron probability frequency distribution
+                        </option>
+                        <option value="tunneling_effect">Quantum Tunneling - Frequency barrier penetration</option>
+                        <option value="dirac_equation">Dirac Equation - Relativistic quantum frequency shifts</option>
+                        <option value="feynman_diagram">Feynman Propagator - Particle interaction frequency mapping
+                        </option>
+                    </optgroup>
+                </select>
+            </div>
+
+            <div class="control-group">
+                <div class="compact-layout">
+                    <div class="compact-control">
+                        <label for="powerSlider">Amount: <span class="value-display"
+                                id="powerValue">1.000</span></label>
+                        <div class="dual-slider-container modulation-disabled">
+                            <input type="range" id="powerSlider" class="main-slider" min="0.1" max="20.0" step="0.001"
+                                value="1.0">
+                            <input type="range" id="modMinSlider" class="mod-handle" min="0.1" max="20.0" step="0.001"
+                                value="0.1">
+                            <input type="range" id="modMaxSlider" class="mod-handle" min="0.1" max="20.0" step="0.001"
+                                value="1.0">
+                            <div class="modulation-range-display">
+                                Mod Range: <span id="modRangeValue">0.100 → 1.000</span>
+                            </div>
+                        </div>
+                        <div class="slider-info">
+                            <span>0.1</span>
+                            <span>10.0</span>
+                            <span>20.0</span>
+                        </div>
+                    </div>
+                    <div class="compact-control">
+                        <label for="modPeriodSlider">Modulate (<span id="modStatus">Off</span>): <span
+                                class="value-display" id="modPeriodValue">5.0s</span></label>
+                        <input type="range" id="modPeriodSlider" min="-1" max="3" step="0.001" value="-1">
+                        <div class="slider-info">
+                            <span>Off</span>
+                            <span>1s</span>
+                            <span>10m</span>
+                        </div>
+                    </div>
+                    <div class="compact-control">
+                        <label for="mixSlider">Mix: <span class="value-display" id="mixValue">100%</span></label>
+                        <input type="range" id="mixSlider" min="0" max="100" step="1" value="100">
+                        <div class="slider-info">
+                            <span>0%</span>
+                            <span>50%</span>
+                            <span>100%</span>
+                        </div>
+                    </div>
+                    <div class="compact-control">
+                        <label for="gainSlider">Gain: <span class="value-display" id="gainValue">1.0</span></label>
+                        <input type="range" id="gainSlider" min="0.1" max="5.0" step="0.1" value="1.0">
+                        <div class="slider-info">
+                            <span>0.1</span>
+                            <span>2.5</span>
+                            <span>5.0</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <div class="compact-layout">
+                    <div class="compact-control">
+                        <label for="rangeSlider">Range: <span class="value-display"
+                                id="rangeValue">Normal</span></label>
+                        <input type="range" id="rangeSlider" min="0" max="2" step="1" value="0">
+                        <div class="slider-info">
+                            <span>Normal</span>
+                            <span>Extended</span>
+                            <span>Unlimited</span>
+                        </div>
+                    </div>
+                    <div class="compact-control">
+                        <label>Anti-aliasing:</label>
+                        <div class="toggle-container">
+                            <button id="filterToggle" class="toggle-btn active">Filter</button>
+                            <button id="wrapToggle" class="toggle-btn">Wrap</button>
+                            <button id="noFilterToggle" class="toggle-btn">Off</button>
+                        </div>
+                    </div>
+                    <div class="compact-control">
+                        <label>Frequency Mapping:</label>
+                        <div class="toggle-container">
+                            <button id="normalFreqBtn" class="toggle-btn active">Normal</button>
+                            <button id="humanRangeBtn" class="toggle-btn">Human Range</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label>Audio Visualization:</label>
+                <div class="visualizer">
+                    <canvas id="visualizerCanvas"></canvas>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <div class="button-group">
+                    <button id="playBtn">▶️ Play</button>
+                    <button id="downloadBtn" disabled>💾 Download</button>
+                </div>
+                <div id="status" style="margin-top: 10px; font-size: 0.85em;"></div>
+                <div class="memory-info" id="memoryInfo" style="font-size: 0.75em; margin-top: 5px;"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
