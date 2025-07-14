@@ -916,19 +916,25 @@
                 <div
                     style="border: 1px solid rgba(78, 205, 196, 0.3); border-radius: 6px; padding: 8px; margin-bottom: 8px; background: rgba(78, 205, 196, 0.05);">
                     <h4 style="margin: 0 0 6px 0; font-size: 0.85em; color: #4ecdc4;">🎵 Track A</h4>
-                    <div class="file-drop-zone" id="fileDropZoneA" style="padding: 8px; margin-bottom: 6px;">
-                        <div class="file-drop-text" style="font-size: 11px;">🎵 Drop audio file A here or click</div>
+
+                    <!-- File Drop Zone Row -->
+                    <div class="file-drop-zone" id="fileDropZoneA"
+                        style="padding: 4px 8px; margin-bottom: 8px; position: relative; border: 1px dashed rgba(78, 205, 196, 0.5); border-radius: 4px; height: 20px; overflow: hidden;">
+                        <div class="file-drop-text" style="font-size: 11px; text-align: center; line-height: 12px;">🎵
+                            Drop audio file A here or click</div>
                         <input type="file" id="fileInputA" accept="audio/*"
-                            style="opacity: 0; position: absolute; width: 100%; height: 100%; cursor: pointer;">
+                            style="opacity: 0; position: absolute; top: 0; left: 0; width: 100%; height: 20px; cursor: pointer; z-index: 1;">
                     </div>
-                    <div class="compact-layout" style="grid-template-columns: 1fr 1fr 1fr; gap: 4px;">
+
+                    <!-- Controls Row -->
+                    <div class="compact-layout" style="grid-template-columns: 1fr 1fr; gap: 4px; margin-bottom: 4px;">
                         <button type="button" id="playBtnA" style="padding: 4px 6px; font-size: 0.75em;">▶️ Play
                             A</button>
                         <button type="button" id="stopBtnA" style="padding: 4px 6px; font-size: 0.75em;">⏹️
                             Stop</button>
-                        <button type="button" id="testAudioBtnA" style="padding: 4px 6px; font-size: 0.75em;">🎼
-                            Test</button>
                     </div>
+
+                    <!-- Time Slider Row -->
                     <div class="compact-control" style="margin-top: 4px;">
                         <label for="timeSliderA" style="font-size: 0.75em;">Time A: <span class="value-display"
                                 id="timeValueA">0:00</span></label>
@@ -941,19 +947,25 @@
                 <div
                     style="border: 1px solid rgba(255, 107, 107, 0.3); border-radius: 6px; padding: 8px; margin-bottom: 8px; background: rgba(255, 107, 107, 0.05);">
                     <h4 style="margin: 0 0 6px 0; font-size: 0.85em; color: #ff6b6b;">🎵 Track B</h4>
-                    <div class="file-drop-zone" id="fileDropZoneB" style="padding: 8px; margin-bottom: 6px;">
-                        <div class="file-drop-text" style="font-size: 11px;">🎵 Drop audio file B here or click</div>
+
+                    <!-- File Drop Zone Row -->
+                    <div class="file-drop-zone" id="fileDropZoneB"
+                        style="padding: 4px 8px; margin-bottom: 8px; position: relative; border: 1px dashed rgba(255, 107, 107, 0.5); border-radius: 4px; height: 20px; overflow: hidden;">
+                        <div class="file-drop-text" style="font-size: 11px; text-align: center; line-height: 12px;">🎵
+                            Drop audio file B here or click</div>
                         <input type="file" id="fileInputB" accept="audio/*"
-                            style="opacity: 0; position: absolute; width: 100%; height: 100%; cursor: pointer;">
+                            style="opacity: 0; position: absolute; top: 0; left: 0; width: 100%; height: 20px; cursor: pointer; z-index: 1;">
                     </div>
-                    <div class="compact-layout" style="grid-template-columns: 1fr 1fr 1fr; gap: 4px;">
+
+                    <!-- Controls Row -->
+                    <div class="compact-layout" style="grid-template-columns: 1fr 1fr; gap: 4px; margin-bottom: 4px;">
                         <button type="button" id="playBtnB" style="padding: 4px 6px; font-size: 0.75em;">▶️ Play
                             B</button>
                         <button type="button" id="stopBtnB" style="padding: 4px 6px; font-size: 0.75em;">⏹️
                             Stop</button>
-                        <button type="button" id="testAudioBtnB" style="padding: 4px 6px; font-size: 0.75em;">🎼
-                            Test</button>
                     </div>
+
+                    <!-- Time Slider Row -->
                     <div class="compact-control" style="margin-top: 4px;">
                         <label for="timeSliderB" style="font-size: 0.75em;">Time B: <span class="value-display"
                                 id="timeValueB">0:00</span></label>
@@ -986,13 +998,7 @@
 
                 <!-- Master Controls -->
                 <div style="margin-top: 8px;">
-                    <div class="compact-layout" style="grid-template-columns: 1fr 1fr; gap: 6px;">
-                        <button type="button" id="playBothBtn"
-                            style="padding: 6px; font-size: 0.8em; background: linear-gradient(135deg, #4ecdc4, #ff6b6b);">▶️
-                            Play Mixed</button>
-                        <button type="button" id="downloadBtn" disabled style="padding: 6px; font-size: 0.8em;">💾
-                            Download</button>
-                    </div>
+                    <!-- Buttons removed as requested -->
                 </div>
 
                 <div id="status" style="margin-top: 6px; font-size: 0.75em;"></div>
@@ -1362,6 +1368,10 @@
         let trackPositionA = 0, trackPositionB = 0;
         let trackDurationA = 0, trackDurationB = 0;
         let trackStartTimeA = 0, trackStartTimeB = 0;
+
+        // Time slider drag state tracking
+        let timeSliderADragging = false;
+        let timeSliderBDragging = false;
 
         // Crossfader variables
         let crossfaderValue = 50; // 0 = A only, 50 = equal mix, 100 = B only
@@ -2107,6 +2117,68 @@
             }
         }
 
+        // Function to recreate reverb impulse response when parameters change
+        function recreateReverbImpulse() {
+            if (!ctx || !reverbNode) return;
+
+            try {
+                // Generate new impulse response with current parameters
+                const sampleRate = ctx.sampleRate;
+                const decayTime = realtimeParams.reverbDecay;
+                const roomSize = realtimeParams.reverbRoomSize;
+                const length = Math.min(sampleRate * decayTime, sampleRate * 4); // Max 4 seconds
+
+                const impulse = ctx.createBuffer(2, length, sampleRate);
+
+                for (let channel = 0; channel < 2; channel++) {
+                    const channelData = impulse.getChannelData(channel);
+                    for (let i = 0; i < length; i++) {
+                        const t = i / sampleRate;
+
+                        // Exponential decay
+                        const decay = Math.exp(-4 * t / decayTime);
+
+                        // Room characteristics
+                        const roomFactor = 0.05 + roomSize * 0.95;
+
+                        // Early reflections (first 80ms)
+                        let sample = 0;
+                        if (t < 0.08) {
+                            const reflectionDensity = roomFactor * 20;
+                            const numReflections = Math.floor(reflectionDensity * t);
+                            for (let r = 0; r < numReflections; r++) {
+                                const reflectionTime = Math.random() * t;
+                                const reflectionDecay = Math.exp(-reflectionTime / 0.02);
+                                const reflectionAmp = (Math.random() - 0.5) * 0.1 * reflectionDecay;
+                                sample += reflectionAmp;
+                            }
+                        }
+
+                        // Late reverb (dense, decorrelated)
+                        const lateReverb = (Math.random() - 0.5) * 2 * decay * roomFactor;
+
+                        // High frequency rolloff
+                        const hfRolloff = Math.exp(-t * 2);
+
+                        // Combine components
+                        const totalSample = (sample + lateReverb) * hfRolloff;
+
+                        // Stereo decorrelation
+                        channelData[i] = totalSample * (channel === 0 ? 1 : 0.7 + Math.random() * 0.3);
+                    }
+                }
+
+                // Update the reverb node's buffer
+                reverbNode.buffer = impulse;
+
+                showStatus(`Reverb updated: ${realtimeParams.reverbDecay.toFixed(1)}s decay, ${Math.round(realtimeParams.reverbRoomSize * 100)}% room size`, 'info');
+
+            } catch (error) {
+                console.error('Error recreating reverb impulse:', error);
+                showStatus('Error updating reverb parameters', 'error');
+            }
+        }
+
         // RMS calculation for auto gain compensation (simpler than LUFS)
         function calculateRMS(analyser) {
             if (!analyser) return 0.0;
@@ -2802,8 +2874,54 @@
                 canvasCtx.fillText('● REAL-TIME', 10, 50);
             }
 
+            // Update time sliders for playing tracks
+            updateTimeSliders();
+
             if (isPlaying) {
                 animationId = requestAnimationFrame(drawVisualization);
+            }
+        }
+
+        // Function to update time sliders during playback
+        function updateTimeSliders() {
+            if (!ctx) return;
+
+            // Update Track A slider
+            if (isPlayingA && trackStartTimeA !== undefined) {
+                const currentTimeA = ctx.currentTime - trackStartTimeA;
+                const durationA = audioBufferA ? audioBufferA.duration : 0;
+
+                if (durationA > 0) {
+                    trackPositionA = currentTimeA % durationA; // Handle looping
+                    const sliderA = document.getElementById('timeSliderA');
+                    const valueA = document.getElementById('timeValueA');
+
+                    if (sliderA && !timeSliderADragging) { // Don't update if user is dragging
+                        sliderA.value = trackPositionA;
+                        const minutes = Math.floor(trackPositionA / 60);
+                        const seconds = Math.floor(trackPositionA % 60);
+                        valueA.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+                    }
+                }
+            }
+
+            // Update Track B slider
+            if (isPlayingB && trackStartTimeB !== undefined) {
+                const currentTimeB = ctx.currentTime - trackStartTimeB;
+                const durationB = audioBufferB ? audioBufferB.duration : 0;
+
+                if (durationB > 0) {
+                    trackPositionB = currentTimeB % durationB; // Handle looping
+                    const sliderB = document.getElementById('timeSliderB');
+                    const valueB = document.getElementById('timeValueB');
+
+                    if (sliderB && !timeSliderBDragging) { // Don't update if user is dragging
+                        sliderB.value = trackPositionB;
+                        const minutes = Math.floor(trackPositionB / 60);
+                        const seconds = Math.floor(trackPositionB % 60);
+                        valueB.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+                    }
+                }
             }
         }
 
@@ -3471,14 +3589,15 @@
                         const roomSize = parseInt(val) / 100;
                         document.getElementById('reverbRoomSizeValue').textContent = `${val}%`;
                         realtimeParams.reverbRoomSize = roomSize;
-                        // Note: Room size changes require recreating the reverb impulse response
-                        // For real-time updates, we would need a more complex implementation
+                        // Recreate reverb impulse response with new room size
+                        recreateReverbImpulse();
                     },
                     reverbDecaySlider: (val) => {
                         const decay = parseFloat(val);
                         document.getElementById('reverbDecayValue').textContent = `${decay.toFixed(1)}s`;
                         realtimeParams.reverbDecay = decay;
-                        // Note: Decay changes require recreating the reverb impulse response
+                        // Recreate reverb impulse response with new decay time
+                        recreateReverbImpulse();
                     },
                     reverbMixSlider: (val) => {
                         const mixValue = parseInt(val) / 100;
@@ -3729,11 +3848,13 @@
                                 trackDurationA = audioBuffer.duration;
                                 document.getElementById('timeSliderA').max = trackDurationA;
                                 document.getElementById('playBtnA').disabled = false;
+                                console.log(`Track A loaded: duration=${trackDurationA}s, slider max set to ${trackDurationA}`);
                             } else {
                                 audioBufferB = audioBuffer;
                                 trackDurationB = audioBuffer.duration;
                                 document.getElementById('timeSliderB').max = trackDurationB;
                                 document.getElementById('playBtnB').disabled = false;
+                                console.log(`Track B loaded: duration=${trackDurationB}s, slider max set to ${trackDurationB}`);
                             }
 
                             const duration = audioBuffer.duration;
@@ -3756,12 +3877,6 @@
                             dropText.textContent = `✅ ${file.name.substring(0, 20)}...`;
                             dropZone.style.borderColor = track === 'A' ? 'rgba(78, 205, 196, 0.7)' : 'rgba(255, 107, 107, 0.7)';
                             dropZone.style.background = track === 'A' ? 'rgba(78, 205, 196, 0.1)' : 'rgba(255, 107, 107, 0.1)';
-
-                            // Enable play mixed button if both tracks are loaded
-                            if (audioBufferA && audioBufferB) {
-                                document.getElementById('playBothBtn').disabled = false;
-                                document.getElementById('downloadBtn').disabled = false;
-                            }
 
                             // Show audio info in status for user
                             setTimeout(() => {
@@ -3867,25 +3982,92 @@
             });
 
             // Track A Stop button
-            document.getElementById('stopBtnA').addEventListener('click', async function (event) {
-                event.preventDefault();
-                event.stopPropagation();
-                await stopTrack('A');
-            });
+            const stopBtnA = document.getElementById('stopBtnA');
+            if (stopBtnA) {
+                console.log('Stop button A found and adding event listener');
+
+                // Clear all existing handlers and attributes
+                stopBtnA.onclick = null;
+                stopBtnA.removeAttribute('onclick');
+                stopBtnA.removeAttribute('href');
+                stopBtnA.setAttribute('type', 'button'); // Ensure it's a button
+
+                // Define the stop handler
+                const stopHandlerA = async function (event) {
+                    console.log('Stop button A activated!', event.type, event.target);
+
+                    // Immediately block all event propagation
+                    event.preventDefault();
+                    event.stopPropagation();
+                    event.stopImmediatePropagation();
+
+                    // Additional debugging
+                    console.log('Event target:', event.target);
+                    console.log('Event currentTarget:', event.currentTarget);
+                    console.log('Event phase:', event.eventPhase);
+
+                    try {
+                        await stopTrack('A');
+                        console.log('Stop track A completed');
+                    } catch (error) {
+                        console.error('Error in stop track A:', error);
+                    }
+
+                    return false;
+                };
+
+                // Add multiple event listeners to catch all possible interactions
+                stopBtnA.addEventListener('click', stopHandlerA, { capture: true, passive: false });
+                stopBtnA.addEventListener('mousedown', stopHandlerA, { capture: true, passive: false });
+                stopBtnA.addEventListener('touchstart', stopHandlerA, { capture: true, passive: false });
+
+            } else {
+                console.error('Stop button A not found!');
+            }
 
             // Track B Stop button
-            document.getElementById('stopBtnB').addEventListener('click', async function (event) {
-                event.preventDefault();
-                event.stopPropagation();
-                await stopTrack('B');
-            });
+            const stopBtnB = document.getElementById('stopBtnB');
+            if (stopBtnB) {
+                console.log('Stop button B found and adding event listener');
 
-            // Play Mixed button - plays both tracks through the transform system
-            document.getElementById('playBothBtn').addEventListener('click', async function (event) {
-                event.preventDefault();
-                event.stopPropagation();
-                await toggleMixedPlayback();
-            });
+                // Clear all existing handlers and attributes
+                stopBtnB.onclick = null;
+                stopBtnB.removeAttribute('onclick');
+                stopBtnB.removeAttribute('href');
+                stopBtnB.setAttribute('type', 'button'); // Ensure it's a button
+
+                // Define the stop handler
+                const stopHandlerB = async function (event) {
+                    console.log('Stop button B activated!', event.type, event.target);
+
+                    // Immediately block all event propagation
+                    event.preventDefault();
+                    event.stopPropagation();
+                    event.stopImmediatePropagation();
+
+                    // Additional debugging
+                    console.log('Event target:', event.target);
+                    console.log('Event currentTarget:', event.currentTarget);
+                    console.log('Event phase:', event.eventPhase);
+
+                    try {
+                        await stopTrack('B');
+                        console.log('Stop track B completed');
+                    } catch (error) {
+                        console.error('Error in stop track B:', error);
+                    }
+
+                    return false;
+                };
+
+                // Add multiple event listeners to catch all possible interactions
+                stopBtnB.addEventListener('click', stopHandlerB, { capture: true, passive: false });
+                stopBtnB.addEventListener('mousedown', stopHandlerB, { capture: true, passive: false });
+                stopBtnB.addEventListener('touchstart', stopHandlerB, { capture: true, passive: false });
+
+            } else {
+                console.error('Stop button B not found!');
+            }
 
             // Track timing functions
             async function toggleTrackPlayback(track) {
@@ -3893,7 +4075,7 @@
                 const playBtn = document.getElementById(`playBtn${track}`);
 
                 if (isPlayingTrack) {
-                    await stopTrack(track);
+                    await pauseTrack(track);
                 } else {
                     await playTrack(track);
                 }
@@ -3921,6 +4103,9 @@
                     source.buffer = audioBuffer;
                     source.loop = true;
 
+                    // Get current track position
+                    const startPosition = track === 'A' ? trackPositionA : trackPositionB;
+
                     // Connect to appropriate mixer channel
                     if (track === 'A') {
                         if (currentSourceA) {
@@ -3929,7 +4114,7 @@
                         currentSourceA = source;
                         source.connect(mixerGainNodeA);
                         isPlayingA = true;
-                        trackStartTimeA = ctx.currentTime;
+                        trackStartTimeA = ctx.currentTime - startPosition;
 
                         // When track A starts, trigger FadeSync update if enabled
                         if (realtimeParams.fadeSyncEnabled) {
@@ -3942,7 +4127,7 @@
                         currentSourceB = source;
                         source.connect(mixerGainNodeB);
                         isPlayingB = true;
-                        trackStartTimeB = ctx.currentTime;
+                        trackStartTimeB = ctx.currentTime - startPosition;
 
                         // When track B starts, trigger FadeSync update if enabled
                         if (realtimeParams.fadeSyncEnabled) {
@@ -3962,7 +4147,8 @@
                         }
                     };
 
-                    source.start();
+                    // Start playback from the current position
+                    source.start(0, startPosition);
                     showStatus(`Track ${track} playing through transformer`, 'info');
 
                 } catch (error) {
@@ -3971,27 +4157,164 @@
                 }
             }
 
+            async function pauseTrack(track) {
+                const playBtn = document.getElementById(`playBtn${track}`);
+
+                try {
+                    if (track === 'A' && currentSourceA) {
+                        // Save current position before stopping
+                        trackPositionA = ctx.currentTime - trackStartTimeA;
+
+                        currentSourceA.stop();
+                        currentSourceA = null;
+                        isPlayingA = false;
+                        if (playBtn) {
+                            playBtn.textContent = '▶️ Play A';
+                        }
+
+                    } else if (track === 'B' && currentSourceB) {
+                        // Save current position before stopping
+                        trackPositionB = ctx.currentTime - trackStartTimeB;
+
+                        currentSourceB.stop();
+                        currentSourceB = null;
+                        isPlayingB = false;
+                        if (playBtn) {
+                            playBtn.textContent = '▶️ Play B';
+                        }
+                    }
+
+                    // If no tracks are playing, stop the mixed system
+                    if (!isPlayingA && !isPlayingB) {
+                        await stopMixedPlayback();
+                    }
+
+                    showStatus(`Track ${track} paused`, 'info');
+
+                } catch (error) {
+                    console.error(`Error pausing track ${track}:`, error);
+                    showStatus(`Error pausing Track ${track}: ${error.message}`, 'error');
+                }
+            }
+
             async function stopTrack(track) {
                 const playBtn = document.getElementById(`playBtn${track}`);
 
-                if (track === 'A' && currentSourceA) {
-                    currentSourceA.stop();
-                    currentSourceA = null;
-                    isPlayingA = false;
-                    playBtn.textContent = '▶️ Play A';
-                } else if (track === 'B' && currentSourceB) {
-                    currentSourceB.stop();
-                    currentSourceB = null;
-                    isPlayingB = false;
-                    playBtn.textContent = '▶️ Play B';
-                }
+                try {
+                    if (track === 'A' && currentSourceA) {
+                        currentSourceA.stop();
+                        currentSourceA = null;
+                        isPlayingA = false;
+                        if (playBtn) {
+                            playBtn.textContent = '▶️ Play A';
+                        }
+                        trackPositionA = 0; // Reset position
 
-                // If no tracks are playing, stop the mixed system
-                if (!isPlayingA && !isPlayingB) {
-                    await stopMixedPlayback();
-                }
+                        // Reset time slider
+                        const timeSliderA = document.getElementById('timeSliderA');
+                        const timeValueA = document.getElementById('timeValueA');
+                        if (timeSliderA) timeSliderA.value = 0;
+                        if (timeValueA) timeValueA.textContent = '0:00';
 
-                showStatus(`Track ${track} stopped`, 'info');
+                    } else if (track === 'B' && currentSourceB) {
+                        currentSourceB.stop();
+                        currentSourceB = null;
+                        isPlayingB = false;
+                        if (playBtn) {
+                            playBtn.textContent = '▶️ Play B';
+                        }
+                        trackPositionB = 0; // Reset position
+
+                        // Reset time slider
+                        const timeSliderB = document.getElementById('timeSliderB');
+                        const timeValueB = document.getElementById('timeValueB');
+                        if (timeSliderB) timeSliderB.value = 0;
+                        if (timeValueB) timeValueB.textContent = '0:00';
+                    }
+
+                    // If no tracks are playing, stop the mixed system
+                    if (!isPlayingA && !isPlayingB) {
+                        await stopMixedPlayback();
+                    }
+
+                    showStatus(`Track ${track} stopped`, 'info');
+
+                } catch (error) {
+                    console.error(`Error stopping track ${track}:`, error);
+                    showStatus(`Error stopping Track ${track}: ${error.message}`, 'error');
+                }
+            }
+
+            // Function to scrub track to specific position
+            function scrubTrack(track, position) {
+                console.log(`scrubTrack called: track=${track}, position=${position}`);
+                try {
+                    if (track === 'A' && currentSourceA && audioBufferA && isPlayingA) {
+                        console.log(`Scrubbing track A from ${trackPositionA} to ${position}`);
+                        // Stop current source (but don't trigger button state change)
+                        currentSourceA.onended = null; // Remove the onended handler to prevent button state change
+                        currentSourceA.stop();
+
+                        // Create new source starting at the specified position
+                        const newSource = ctx.createBufferSource();
+                        newSource.buffer = audioBufferA;
+                        newSource.loop = true;
+                        newSource.connect(mixerGainNodeA);
+
+                        // Start from the scrubbed position
+                        newSource.start(0, position);
+                        currentSourceA = newSource;
+                        trackStartTimeA = ctx.currentTime - position;
+
+                        // Set onended handler for natural track ending (not scrubbing)
+                        newSource.onended = () => {
+                            // Only change button state if the track actually ended naturally
+                            if (isPlayingA) {
+                                isPlayingA = false;
+                                document.getElementById('playBtnA').textContent = '▶️ Play A';
+                                currentSourceA = null;
+                                console.log('Track A ended naturally');
+                            }
+                        };
+
+                        console.log(`Track A scrubbed successfully to ${position}s`);
+
+                    } else if (track === 'B' && currentSourceB && audioBufferB && isPlayingB) {
+                        console.log(`Scrubbing track B from ${trackPositionB} to ${position}`);
+                        // Stop current source (but don't trigger button state change)
+                        currentSourceB.onended = null; // Remove the onended handler to prevent button state change
+                        currentSourceB.stop();
+
+                        // Create new source starting at the specified position
+                        const newSource = ctx.createBufferSource();
+                        newSource.buffer = audioBufferB;
+                        newSource.loop = true;
+                        newSource.connect(mixerGainNodeB);
+
+                        // Start from the scrubbed position
+                        newSource.start(0, position);
+                        currentSourceB = newSource;
+                        trackStartTimeB = ctx.currentTime - position;
+
+                        // Set onended handler for natural track ending (not scrubbing)
+                        newSource.onended = () => {
+                            // Only change button state if the track actually ended naturally
+                            if (isPlayingB) {
+                                isPlayingB = false;
+                                document.getElementById('playBtnB').textContent = '▶️ Play B';
+                                currentSourceB = null;
+                                console.log('Track B ended naturally');
+                            }
+                        };
+
+                        console.log(`Track B scrubbed successfully to ${position}s`);
+                    } else {
+                        console.log(`Scrubbing skipped: track=${track}, playing=${track === 'A' ? isPlayingA : isPlayingB}, hasSource=${track === 'A' ? !!currentSourceA : !!currentSourceB}, hasBuffer=${track === 'A' ? !!audioBufferA : !!audioBufferB}`);
+                    }
+                } catch (error) {
+                    console.error(`Error scrubbing track ${track}:`, error);
+                    showStatus(`Error scrubbing track ${track}: ${error.message}`, 'error');
+                }
             }
 
             // Initialize the mixed playback system (always runs when any track plays)
@@ -4119,8 +4442,6 @@
 
             // Mixed playback with crossfading and processing
             async function toggleMixedPlayback() {
-                const playBtn = document.getElementById('playBothBtn');
-
                 if (isPlaying) {
                     await stopMixedPlayback();
                 } else {
@@ -4133,8 +4454,6 @@
             }
 
             async function stopMixedPlayback() {
-                const playBtn = document.getElementById('playBothBtn');
-
                 // Stop LUFS monitoring
                 if (lufsUpdateInterval) {
                     clearInterval(lufsUpdateInterval);
@@ -4173,7 +4492,6 @@
                 // Reset variables
                 isPlaying = false;
                 isRealTimeMode = false;
-                playBtn.textContent = '▶️ Play Mixed';
 
                 cancelAnimationFrame(animationId);
                 showStatus('Mixed playback stopped', 'info');
@@ -4319,118 +4637,143 @@
                 }
             });
 
-            // Track time sliders
-            document.getElementById('timeSliderA').addEventListener('input', function () {
-                trackPositionA = parseFloat(this.value);
-                const minutes = Math.floor(trackPositionA / 60);
-                const seconds = Math.floor(trackPositionA % 60);
-                document.getElementById('timeValueA').textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
-            });
+            // Track time sliders with proper drag state tracking
+            const timeSliderA = document.getElementById('timeSliderA');
+            if (timeSliderA) {
+                console.log('Time slider A found, setting up event listeners');
 
-            document.getElementById('timeSliderB').addEventListener('input', function () {
-                trackPositionB = parseFloat(this.value);
-                const minutes = Math.floor(trackPositionB / 60);
-                const seconds = Math.floor(trackPositionB % 60);
-                document.getElementById('timeValueB').textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
-            });
+                // Track drag state with specific events for this slider
+                const handleMouseDownA = () => {
+                    timeSliderADragging = true;
+                    console.log('Time slider A drag started');
+                };
 
-            // Test audio generators for both tracks
-            document.getElementById('testAudioBtnA').addEventListener('click', async function () {
-                await generateTestAudio('A');
-            });
-
-            document.getElementById('testAudioBtnB').addEventListener('click', async function () {
-                await generateTestAudio('B');
-            });
-
-            async function generateTestAudio(track) {
-                try {
-                    await initAudioContext();
-
-                    showStatus(`Generating test audio for Track ${track}...`, 'info');
-
-                    // Create a 10-second test tone
-                    const duration = 10;
-                    const sampleRate = ctx.sampleRate;
-                    const buffer = ctx.createBuffer(2, duration * sampleRate, sampleRate);
-
-                    // Generate different test sounds for each track
-                    const baseFreq = track === 'A' ? 440 : 554.37; // A4 vs C#5
-
-                    for (let channel = 0; channel < buffer.numberOfChannels; channel++) {
-                        const channelData = buffer.getChannelData(channel);
-                        for (let i = 0; i < channelData.length; i++) {
-                            const t = i / sampleRate;
-
-                            // Different waveforms for A and B
-                            if (track === 'A') {
-                                // Sawtooth wave with harmonic content
-                                let sample = 0;
-                                for (let harmonic = 1; harmonic <= 8; harmonic++) {
-                                    sample += Math.sin(2 * Math.PI * baseFreq * harmonic * t) / harmonic;
-                                }
-                                channelData[i] = sample * 0.1;
-                            } else {
-                                // Square wave with different harmonic content
-                                let sample = 0;
-                                for (let harmonic = 1; harmonic <= 8; harmonic += 2) {
-                                    sample += Math.sin(2 * Math.PI * baseFreq * harmonic * t) / harmonic;
-                                }
-                                channelData[i] = sample * 0.1;
-                            }
-
-                            // Add envelope to prevent clicks
-                            const fadeTime = 0.1; // 100ms fade
-                            const fadeInSamples = fadeTime * sampleRate;
-                            const fadeOutSamples = fadeTime * sampleRate;
-
-                            if (i < fadeInSamples) {
-                                channelData[i] *= i / fadeInSamples;
-                            } else if (i > channelData.length - fadeOutSamples) {
-                                channelData[i] *= (channelData.length - i) / fadeOutSamples;
-                            }
-                        }
+                const handleMouseUpA = () => {
+                    if (timeSliderADragging) {
+                        console.log('Time slider A drag ended');
+                        timeSliderADragging = false;
                     }
+                };
 
-                    // Store in appropriate track variable
-                    if (track === 'A') {
-                        audioBufferA = buffer;
-                        trackDurationA = duration;
-                        document.getElementById('timeSliderA').max = duration;
-                        document.getElementById('playBtnA').disabled = false;
+                const handleTouchStartA = () => {
+                    timeSliderADragging = true;
+                    console.log('Time slider A touch started');
+                };
 
-                        // Update drop zone
-                        const dropZone = document.getElementById('fileDropZoneA');
-                        const dropText = dropZone.querySelector('.file-drop-text');
-                        dropText.textContent = `🎼 Test Audio A (${duration}s)`;
-                        dropZone.style.borderColor = 'rgba(78, 205, 196, 0.7)';
-                        dropZone.style.background = 'rgba(78, 205, 196, 0.1)';
-                    } else {
-                        audioBufferB = buffer;
-                        trackDurationB = duration;
-                        document.getElementById('timeSliderB').max = duration;
-                        document.getElementById('playBtnB').disabled = false;
-
-                        // Update drop zone
-                        const dropZone = document.getElementById('fileDropZoneB');
-                        const dropText = dropZone.querySelector('.file-drop-text');
-                        dropText.textContent = `🎼 Test Audio B (${duration}s)`;
-                        dropZone.style.borderColor = 'rgba(255, 107, 107, 0.7)';
-                        dropZone.style.background = 'rgba(255, 107, 107, 0.1)';
+                const handleTouchEndA = () => {
+                    if (timeSliderADragging) {
+                        console.log('Time slider A touch ended');
+                        timeSliderADragging = false;
                     }
+                };
 
-                    // Enable mixed playback if both tracks are ready
-                    if (audioBufferA && audioBufferB) {
-                        document.getElementById('playBothBtn').disabled = false;
-                        document.getElementById('downloadBtn').disabled = false;
+                // Add event listeners
+                timeSliderA.addEventListener('mousedown', handleMouseDownA);
+                timeSliderA.addEventListener('touchstart', handleTouchStartA);
+
+                // Use document-level events but check if this specific slider was being dragged
+                document.addEventListener('mouseup', handleMouseUpA);
+                document.addEventListener('touchend', handleTouchEndA);
+
+                // Also handle mouse leave events to ensure drag state is reset
+                timeSliderA.addEventListener('mouseleave', () => {
+                    if (timeSliderADragging) {
+                        console.log('Time slider A mouse left while dragging - ending drag');
+                        timeSliderADragging = false;
                     }
+                });
 
-                    showStatus(`✅ Test audio generated for Track ${track} (${duration}s, ${baseFreq.toFixed(1)}Hz base)`, 'success');
+                timeSliderA.addEventListener('input', function () {
+                    console.log(`Time slider A moved to: ${this.value}, dragging: ${timeSliderADragging}`);
+                    trackPositionA = parseFloat(this.value);
+                    const minutes = Math.floor(trackPositionA / 60);
+                    const seconds = Math.floor(trackPositionA % 60);
+                    document.getElementById('timeValueA').textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
 
-                } catch (error) {
-                    showStatus(`Error generating test audio for Track ${track}: ${error.message}`, 'error');
-                    console.error(`Test audio generation error for Track ${track}:`, error);
-                }
+                    // Scrub track A to the new position if playing
+                    if (isPlayingA && currentSourceA && audioBufferA) {
+                        console.log(`Scrubbing track A to position: ${trackPositionA}`);
+                        scrubTrack('A', trackPositionA);
+                    }
+                });
+
+                // Handle the change event (fires when user releases slider)
+                timeSliderA.addEventListener('change', function () {
+                    console.log(`Time slider A change event: ${this.value}`);
+                    timeSliderADragging = false; // Ensure drag state is reset
+                });
+
+            } else {
+                console.error('Time slider A not found!');
+            }
+
+            const timeSliderB = document.getElementById('timeSliderB');
+            if (timeSliderB) {
+                console.log('Time slider B found, setting up event listeners');
+
+                // Track drag state with specific events for this slider
+                const handleMouseDownB = () => {
+                    timeSliderBDragging = true;
+                    console.log('Time slider B drag started');
+                };
+
+                const handleMouseUpB = () => {
+                    if (timeSliderBDragging) {
+                        console.log('Time slider B drag ended');
+                        timeSliderBDragging = false;
+                    }
+                };
+
+                const handleTouchStartB = () => {
+                    timeSliderBDragging = true;
+                    console.log('Time slider B touch started');
+                };
+
+                const handleTouchEndB = () => {
+                    if (timeSliderBDragging) {
+                        console.log('Time slider B touch ended');
+                        timeSliderBDragging = false;
+                    }
+                };
+
+                // Add event listeners
+                timeSliderB.addEventListener('mousedown', handleMouseDownB);
+                timeSliderB.addEventListener('touchstart', handleTouchStartB);
+
+                // Use document-level events but check if this specific slider was being dragged
+                document.addEventListener('mouseup', handleMouseUpB);
+                document.addEventListener('touchend', handleTouchEndB);
+
+                // Also handle mouse leave events to ensure drag state is reset
+                timeSliderB.addEventListener('mouseleave', () => {
+                    if (timeSliderBDragging) {
+                        console.log('Time slider B mouse left while dragging - ending drag');
+                        timeSliderBDragging = false;
+                    }
+                });
+
+                timeSliderB.addEventListener('input', function () {
+                    console.log(`Time slider B moved to: ${this.value}, dragging: ${timeSliderBDragging}`);
+                    trackPositionB = parseFloat(this.value);
+                    const minutes = Math.floor(trackPositionB / 60);
+                    const seconds = Math.floor(trackPositionB % 60);
+                    document.getElementById('timeValueB').textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+
+                    // Scrub track B to the new position if playing
+                    if (isPlayingB && currentSourceB && audioBufferB) {
+                        console.log(`Scrubbing track B to position: ${trackPositionB}`);
+                        scrubTrack('B', trackPositionB);
+                    }
+                });
+
+                // Handle the change event (fires when user releases slider)
+                timeSliderB.addEventListener('change', function () {
+                    console.log(`Time slider B change event: ${this.value}`);
+                    timeSliderBDragging = false; // Ensure drag state is reset
+                });
+
+            } else {
+                console.error('Time slider B not found!');
             }
 
             // Crossfader modulation sync function (deprecated - now using FadeSync)
@@ -4438,67 +4781,6 @@
                 // This function is no longer used - FadeSync handles effects mixing
                 // Keep for compatibility with existing mod system calls
             }
-
-            // Download button
-            document.getElementById('downloadBtn').addEventListener('click', function (event) {
-                event.preventDefault(); // Prevent any default browser behavior
-                event.stopPropagation(); // Prevent event bubbling to parent elements
-                if (!processedBuffer) {
-                    showStatus('No processed audio to download', 'error');
-                    return;
-                }
-
-                try {
-                    const channelData = processedBuffer.getChannelData(0);
-                    const length = channelData.length;
-                    const buffer = new ArrayBuffer(44 + length * 2);
-                    const view = new DataView(buffer);
-
-                    // WAV header
-                    const writeString = (offset, string) => {
-                        for (let i = 0; i < string.length; i++) {
-                            view.setUint8(offset + i, string.charCodeAt(i));
-                        }
-                    };
-
-                    writeString(0, 'RIFF');
-                    view.setUint32(4, 36 + length * 2, true);
-                    writeString(8, 'WAVE');
-                    writeString(12, 'fmt ');
-                    view.setUint32(16, 16, true);
-                    view.setUint16(20, 1, true);
-                    view.setUint16(22, 1, true);
-                    view.setUint32(24, processedBuffer.sampleRate, true);
-                    view.setUint32(28, processedBuffer.sampleRate * 2, true);
-                    view.setUint16(32, 2, true);
-                    view.setUint16(34, 16, true);
-                    writeString(36, 'data');
-                    view.setUint32(40, length * 2, true);
-
-                    // Convert float to 16-bit PCM
-                    let offset = 44;
-                    for (let i = 0; i < length; i++) {
-                        const sample = Math.max(-1, Math.min(1, channelData[i]));
-                        view.setInt16(offset, sample < 0 ? sample * 0x8000 : sample * 0x7FFF, true);
-                        offset += 2;
-                    }
-
-                    // Create download
-                    const blob = new Blob([buffer], { type: 'audio/wav' });
-                    const url = URL.createObjectURL(blob);
-                    const a = document.createElement('a');
-                    a.href = url;
-                    a.download = `transformed_dual_track_${selectedFunction}_${Date.now()}.wav`;
-                    a.click();
-                    URL.revokeObjectURL(url);
-
-                    showStatus('Dual-track audio downloaded successfully!', 'success');
-
-                } catch (error) {
-                    showStatus(`Error downloading audio: ${error.message}`, 'error');
-                    console.error('Download error:', error);
-                }
-            });
 
             // Global error handler for all audio operations
             window.addEventListener('error', function (event) {
