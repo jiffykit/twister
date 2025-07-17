@@ -199,6 +199,7 @@
             width: 100%;
             transition: all 0.3s ease;
             cursor: pointer;
+            max-height: 400px;
         }
 
         .function-select:hover {
@@ -208,7 +209,29 @@
         .function-select option {
             background: #222;
             color: #fff;
-            padding: 8px;
+            padding: 8px 12px;
+            border-left: 3px solid transparent;
+            transition: all 0.2s ease;
+        }
+
+        .function-select option:hover {
+            background: #333;
+            border-left-color: #4ecdc4;
+        }
+
+        .function-select optgroup {
+            background: #1a1a1a;
+            color: #4ecdc4;
+            font-weight: bold;
+            font-size: 0.9em;
+            border-top: 1px solid rgba(78, 205, 196, 0.3);
+            margin-top: 2px;
+            padding: 6px 8px;
+        }
+
+        .function-select optgroup:first-child {
+            border-top: none;
+            margin-top: 0;
         }
 
         .button-group {
@@ -368,21 +391,6 @@
             font-size: 0.7em;
             color: #888;
             margin-top: 2px;
-        }
-
-        .visualizer {
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 8px;
-            padding: 10px;
-            margin: 8px 0;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        canvas {
-            width: 100%;
-            height: 100px;
-            border-radius: 6px;
-            background: linear-gradient(45deg, #0a0a0a, #1a1a2e);
         }
 
         .button-group {
@@ -844,6 +852,7 @@
             width: 100%;
             transition: all 0.3s ease;
             cursor: pointer;
+            max-height: 400px;
         }
 
         .function-select:hover {
@@ -853,7 +862,29 @@
         .function-select option {
             background: #222;
             color: #fff;
-            padding: 6px;
+            padding: 6px 10px;
+            border-left: 2px solid transparent;
+            transition: all 0.2s ease;
+        }
+
+        .function-select option:hover {
+            background: #333;
+            border-left-color: #4ecdc4;
+        }
+
+        .function-select optgroup {
+            background: #1a1a1a;
+            color: #4ecdc4;
+            font-weight: bold;
+            font-size: 0.8em;
+            border-top: 1px solid rgba(78, 205, 196, 0.3);
+            margin-top: 1px;
+            padding: 4px 6px;
+        }
+
+        .function-select optgroup:first-child {
+            border-top: none;
+            margin-top: 0;
         }
 
         input[type="file"] {
@@ -1008,133 +1039,28 @@
             <!-- Mathematical Function & Processing -->
             <div class="control-group">
                 <h3>🔬 Mathematical Function</h3>
-                <label for="functionSelect">Function:</label>
+                <label for="functionCategorySelect">Category:</label>
+                <select id="functionCategorySelect" class="function-select">
+                    <option value="basic">🔢 Basic Operations</option>
+                    <option value="logarithmic">📈 Logarithmic & Exponential</option>
+                    <option value="trigonometric">🌊 Trigonometric</option>
+                    <option value="hyperbolic">📐 Hyperbolic</option>
+                    <option value="complex">🔢 Complex Number Operations</option>
+                    <option value="physics">⚛️ Physics Equations</option>
+                    <option value="special">🔬 Special Functions</option>
+                    <option value="geometric">� Geometric</option>
+                    <option value="spirals">🌪️ Spirals</option>
+                    <option value="fractals">🌀 Fractals & Chaos</option>
+                    <option value="wave">🌊 Wave Functions</option>
+                    <option value="patterns">🔸 Special Patterns</option>
+                    <option value="stereo">🎧 Stereo Panning</option>
+                    <option value="quantum">🚀 Quantum & Exotic</option>
+                </select>
+
+                <label for="functionSelect" style="margin-top: 8px;">Function:</label>
                 <select id="functionSelect" class="function-select">
-                    <!-- Basic Operations -->
-                    <optgroup label="🔢 Basic Operations">
-                        <option value="power">Power (f^n) - Raises frequency to a power, expanding harmonic spacing
-                        </option>
-                        <option value="sqrt">Square Root - Compresses frequency spectrum, bringing higher harmonics
-                            closer</option>
-                        <option value="cbrt">Cube Root - Gentle compression of frequency spectrum</option>
-                        <option value="nroot">N-th Root - Adjustable frequency compression based on amount</option>
-                        <option value="square">Square - Expands frequency spectrum, doubling harmonic distances</option>
-                        <option value="cube">Cube - Dramatic frequency expansion, tripling harmonic distances</option>
-                        <option value="inverse">Reciprocal (1/z) - Inverts frequency spectrum, low becomes high</option>
-                    </optgroup>
-
-                    <!-- Logarithmic & Exponential -->
-                    <optgroup label="📈 Logarithmic & Exponential">
-                        <option value="log">Natural Log - Dramatically compresses high frequencies</option>
-                        <option value="log10">Log Base 10 - Even compression across frequency decades</option>
-                        <option value="log2">Log Base 2 - Transforms octaves to linear spacing</option>
-                        <option value="exp">Natural Exponential - Explosive high frequency expansion</option>
-                        <option value="exp2">Base-2 Exponential - Doubles frequency with each octave</option>
-                        <option value="exp10">Base-10 Exponential - Extreme high frequency emphasis</option>
-                    </optgroup>
-
-                    <!-- Trigonometric -->
-                    <optgroup label="🌊 Trigonometric">
-                        <option value="sin">Sine - Warps frequencies in wave-like pattern</option>
-                        <option value="cos">Cosine - Similar to sine but phase-shifted warping</option>
-                        <option value="tan">Tangent - Creates resonant peaks at periodic intervals</option>
-                        <option value="asin">Arc Sine - Compresses extreme frequencies, expands mid-range</option>
-                        <option value="acos">Arc Cosine - Inverse cosine warping of frequency space</option>
-                        <option value="atan">Arc Tangent - Smooth compression of entire spectrum</option>
-                    </optgroup>
-
-                    <!-- Hyperbolic -->
-                    <optgroup label="📐 Hyperbolic">
-                        <option value="sinh">Hyperbolic Sine - Exponential frequency expansion, symmetric</option>
-                        <option value="cosh">Hyperbolic Cosine - Even stronger exponential expansion</option>
-                        <option value="tanh">Hyperbolic Tangent - Frequency compression with soft limiting</option>
-                        <option value="asinh">Inverse Hyperbolic Sine - Logarithmic-like compression</option>
-                        <option value="acosh">Inverse Hyperbolic Cosine - Creates frequency bands</option>
-                        <option value="atanh">Inverse Hyperbolic Tangent - Strong mid-frequency emphasis</option>
-                    </optgroup>
-
-                    <!-- Famous Physics Equations -->
-                    <optgroup label="⚛️ Physics Equations">
-                        <option value="schrodinger">Schrödinger Wave - Probabilistic frequency transformation</option>
-                        <option value="heisenberg">Heisenberg Uncertainty - Frequency-time smearing effect</option>
-                        <option value="einstein_mass_energy">E=mc² - Frequency squaring with relativistic scaling
-                        </option>
-                        <option value="planck_radiation">Planck Radiation - Black body frequency distribution</option>
-                        <option value="maxwell_boltzmann">Maxwell-Boltzmann - Statistical frequency redistribution
-                        </option>
-                        <option value="wave_equation">Wave Equation - Spatial-temporal frequency mapping</option>
-                        <option value="lorentz_factor">Lorentz Factor - Relativistic frequency shifting</option>
-                        <option value="schwarzschild">Schwarzschild Radius - Gravitational frequency warping</option>
-                    </optgroup>
-
-                    <!-- Special Functions -->
-                    <optgroup label="🔬 Special Functions">
-                        <option value="gamma">Gamma Function - Extends factorial to complex frequencies</option>
-                        <option value="zeta">Riemann Zeta - Prime-based frequency transformation</option>
-                        <option value="bessel_j0">Bessel J₀ - Cylindrical wave frequency modulation</option>
-                        <option value="bessel_y0">Bessel Y₀ - Complementary cylindrical modulation</option>
-                        <option value="erf">Error Function - Statistical frequency distribution</option>
-                        <option value="airy_ai">Airy Function - Quantum-mechanical frequency bending</option>
-                    </optgroup>
-
-                    <!-- Fractals & Chaos -->
-                    <optgroup label="🌀 Fractals & Chaos">
-                        <option value="mandelbrot">Mandelbrot Set - Self-similar frequency clusters</option>
-                        <option value="julia">Julia Set - Parameter-dependent frequency patterns</option>
-                        <option value="burning_ship">Burning Ship - Folded self-similar frequency structure</option>
-                        <option value="newton_raphson">Newton Fractal - Frequency root-finding patterns</option>
-                        <option value="logistic_map">Logistic Map - Chaotic frequency bifurcation</option>
-                        <option value="henon_map">Hénon Map - 2D chaotic frequency attractor</option>
-                        <option value="lorenz_attractor">Lorenz Attractor - Weather-like frequency chaos</option>
-                    </optgroup>
-
-                    <!-- Geometric Transformations -->
-                    <optgroup label="📐 Geometric">
-                        <option value="mobius">Möbius Transform - Circular frequency inversion</option>
-                        <option value="joukowsky">Joukowsky Transform - Airfoil-like frequency mapping</option>
-                        <option value="cayley">Cayley Transform - Maps frequency line to unit circle</option>
-                        <option value="schwarz_christoffel">Schwarz-Christoffel - Polygon frequency mapping</option>
-                    </optgroup>
-
-                    <!-- Spirals -->
-                    <optgroup label="🌪️ Spirals">
-                        <option value="spiral">Logarithmic Spiral - Frequency spiraling outward</option>
-                        <option value="fibonacci_spiral">Fibonacci Spiral - Golden ratio frequency spacing</option>
-                        <option value="archimedean_spiral">Archimedean Spiral - Linear spiral frequency shift</option>
-                        <option value="fermat_spiral">Fermat Spiral - Square-root-based frequency spiral</option>
-                        <option value="hyperbolic_spiral">Hyperbolic Spiral - Inverse radius frequency mapping</option>
-                    </optgroup>
-
-                    <!-- Wave Functions -->
-                    <optgroup label="🌊 Wave Functions">
-                        <option value="wave">Wave Interference - Frequency combing with interference</option>
-                        <option value="ripple">Ripple Effect - Concentric frequency rings</option>
-                        <option value="standing_wave">Standing Wave - Frequency nodes and anti-nodes</option>
-                        <option value="doppler_effect">Doppler Effect - Moving source frequency shifts</option>
-                        <option value="chirp">Chirp Function - Frequency sweep transformation</option>
-                        <option value="sinc_function">Sinc Function - Sampling-based frequency comb</option>
-                    </optgroup>
-
-                    <!-- Stereo Panning Effects -->
-                    <optgroup label="🎧 Stereo Panning">
-                        <option value="stereo_real_imag">Real/Imaginary Split - Complex parts to L/R channels</option>
-                        <option value="stereo_mag_phase">Magnitude/Phase Split - Polar components to L/R</option>
-                        <option value="stereo_rotation">Complex Rotation - Rotating frequency stereo field</option>
-                        <option value="stereo_spiral_pan">Spiral Panning - Frequency-dependent stereo panning</option>
-                        <option value="stereo_doppler_pan">Doppler Panning - Moving source stereo illusion</option>
-                    </optgroup>
-
-                    <!-- Quantum & Exotic -->
-                    <optgroup label="🚀 Quantum & Exotic">
-                        <option value="quantum_harmonic">Quantum Harmonic - Discrete energy level frequency mapping
-                        </option>
-                        <option value="hydrogen_orbital">Hydrogen Orbital - Electron probability frequency distribution
-                        </option>
-                        <option value="tunneling_effect">Quantum Tunneling - Frequency barrier penetration</option>
-                        <option value="dirac_equation">Dirac Equation - Relativistic quantum frequency shifts</option>
-                        <option value="feynman_diagram">Feynman Propagator - Particle interaction frequency mapping
-                        </option>
-                    </optgroup>
+                    <!-- Functions will be populated based on category selection -->
+                    <option value="power">Power (f^n) - Frequency stretching/compression</option>
                 </select>
 
                 <div class="compact-layout" style="grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 8px;">
@@ -1175,11 +1101,11 @@
                 <div class="compact-layout" style="grid-template-columns: 1fr; gap: 8px; margin-top: 8px;">
                     <div class="compact-control">
                         <label for="gainSlider">Gain: <span class="value-display" id="gainValue">0.0dB</span></label>
-                        <input type="range" id="gainSlider" min="-60" max="18" step="0.1" value="0">
+                        <input type="range" id="gainSlider" min="-60" max="36" step="0.1" value="0">
                         <div class="slider-info">
                             <span>-∞dB</span>
                             <span>0dB</span>
-                            <span>+18dB</span>
+                            <span>+36dB</span>
                         </div>
                     </div>
                 </div>
@@ -1384,10 +1310,14 @@
         let delayMixNode;
         let delayWetGainNode;
         let delayDryGainNode;
+        let delayLowCutFilter;
+        let delayHighCutFilter;
         let reverbNode;
         let reverbMixNode;
         let reverbWetGainNode;
         let reverbDryGainNode;
+        let reverbLowCutFilter;
+        let reverbHighCutFilter;
 
         // Output filter nodes
         let lowPassFilter;
@@ -1404,7 +1334,7 @@
 
         // Real-time processing parameters
         let realtimeParams = {
-            fftSize: 2048,
+            fftSize: 16007,
             amount: 1.0,
             smoothing: 0.1,
             mix: 1.0,
@@ -1458,6 +1388,7 @@
         };
 
         // Complex function definitions with complete implementations
+        // 'inverse': Flips the frequency spectrum around a central point, creating unique spectral inversions and mirror effects.
         const complexFunctions = {
             // === BASIC MATHEMATICAL OPERATIONS ===
             'power': { name: 'Power (f^n)', desc: 'Frequency stretching/compression' },
@@ -1465,10 +1396,7 @@
             'cbrt': { name: '∛z', desc: 'Cube root expansion' },
             'nroot': { name: 'ⁿ√z', desc: 'N-th root (power-controlled)' },
             'square': { name: 'z²', desc: 'Square compression' },
-            'cube': { name: 'z³', desc: 'Cube transformation' },
-            'quartic': { name: 'z⁴', desc: 'Fourth power' },
-            'quintic': { name: 'z⁵', desc: 'Fifth power' },
-            'inverse': { name: '1/z', desc: 'Reciprocal inversion' },
+            'inverse': { name: '1/z', desc: 'Reciprocal inversion. Flips the spectrum around a central point, creating mirror-like spectral effects.' },
 
             // === LOGARITHMIC & EXPONENTIAL ===
             'log': { name: 'ln(z)', desc: 'Natural logarithm' },
@@ -1482,35 +1410,14 @@
             'sin': { name: 'sin(z)', desc: 'Sine wave warping' },
             'cos': { name: 'cos(z)', desc: 'Cosine wave warping' },
             'tan': { name: 'tan(z)', desc: 'Tangent sharp bending' },
-            'csc': { name: 'csc(z)', desc: 'Cosecant (1/sin)' },
-            'sec': { name: 'sec(z)', desc: 'Secant (1/cos)' },
             'cot': { name: 'cot(z)', desc: 'Cotangent (1/tan)' },
 
-            // === INVERSE TRIGONOMETRIC ===
-            'asin': { name: 'arcsin(z)', desc: 'Inverse sine mapping' },
-            'acos': { name: 'arccos(z)', desc: 'Inverse cosine mapping' },
-            'atan': { name: 'arctan(z)', desc: 'S-curve frequency mapping' },
-            'atan2': { name: 'atan2(y,x)', desc: 'Two-argument arctangent' },
-
-            // === HYPERBOLIC FUNCTIONS (FIXED) ===
-            'sinh': { name: 'sinh(z)', desc: 'Hyperbolic sine growth' },
-            'cosh': { name: 'cosh(z)', desc: 'Hyperbolic cosine catenary' },
-            'tanh': { name: 'tanh(z)', desc: 'Hyperbolic tangent saturation' },
-            'csch': { name: 'csch(z)', desc: 'Hyperbolic cosecant' },
-            'sech': { name: 'sech(z)', desc: 'Hyperbolic secant' },
-            'coth': { name: 'coth(z)', desc: 'Hyperbolic cotangent' },
 
             // === INVERSE HYPERBOLIC ===
             'asinh': { name: 'asinh(z)', desc: 'Inverse hyperbolic sine' },
             'acosh': { name: 'acosh(z)', desc: 'Inverse hyperbolic cosine' },
             'atanh': { name: 'atanh(z)', desc: 'Inverse hyperbolic tangent' },
 
-            // === COMPLEX NUMBER OPERATIONS ===
-            'complex_magnitude': { name: '|z|', desc: 'Distance from origin' },
-            'complex_phase': { name: 'arg(z)', desc: 'Angle transformation' },
-            'conjugate': { name: 'z*', desc: 'Complex conjugate mirror' },
-            'reciprocal': { name: '1/z', desc: 'Complex reciprocal' },
-            'abs_square': { name: '|z|²', desc: 'Squared magnitude' },
 
             // === FAMOUS PHYSICS EQUATIONS ===
             'schrodinger': { name: 'Schrödinger Ψ', desc: 'Quantum wave function' },
@@ -1520,32 +1427,19 @@
             'maxwell_boltzmann': { name: 'Maxwell-Boltzmann', desc: 'Velocity distribution' },
             'wave_equation': { name: 'Wave ∂²u/∂t²', desc: 'String vibrations' },
             'heat_equation': { name: 'Heat ∂u/∂t', desc: 'Thermal diffusion' },
-            'lorentz_factor': { name: 'Lorentz γ', desc: 'Relativistic factor' },
             'schwarzschild': { name: 'Schwarzschild r_s', desc: 'Black hole radius' },
             'compton_scattering': { name: 'Compton Δλ', desc: 'Photon scattering' },
 
             // === SPECIAL FUNCTIONS ===
-            'gamma': { name: 'Γ(z)', desc: 'Gamma function' },
-            'factorial': { name: 'z!', desc: 'Factorial function' },
-            'zeta': { name: 'ζ(z)', desc: 'Riemann zeta function' },
-            'eta': { name: 'η(z)', desc: 'Dirichlet eta function' },
-            'bessel_j0': { name: 'J₀(z)', desc: 'Bessel function of 1st kind' },
-            'bessel_y0': { name: 'Y₀(z)', desc: 'Bessel function of 2nd kind' },
-            'bessel_i0': { name: 'I₀(z)', desc: 'Modified Bessel function' },
-            'bessel_k0': { name: 'K₀(z)', desc: 'Modified Bessel function 2nd' },
+
             'airy_ai': { name: 'Ai(z)', desc: 'Airy function Ai' },
             'airy_bi': { name: 'Bi(z)', desc: 'Airy function Bi' },
             'erf': { name: 'erf(z)', desc: 'Error function' },
             'erfc': { name: 'erfc(z)', desc: 'Complementary error function' },
-
-            // === GEOMETRIC TRANSFORMATIONS ===
             'mobius': { name: 'Möbius (az+b)/(cz+d)', desc: 'Conformal mapping' },
-            'joukowsky': { name: 'Joukowsky z+1/z', desc: 'Airfoil transformation' },
-            'schwarz_christoffel': { name: 'Schwarz-Christoffel', desc: 'Polygon mapping' },
-            'cayley': { name: 'Cayley (z-i)/(z+i)', desc: 'Disk to half-plane' },
+
 
             // === SPIRAL TRANSFORMATIONS ===
-            'spiral': { name: 'Log Spiral', desc: 'Logarithmic spiral' },
             'fibonacci_spiral': { name: 'Fibonacci Spiral', desc: 'Golden ratio spiral' },
             'archimedean_spiral': { name: 'Archimedean rθ', desc: 'Linear spiral' },
             'fermat_spiral': { name: 'Fermat r²=aθ', desc: 'Parabolic spiral' },
@@ -1563,31 +1457,16 @@
             'phoenix': { name: 'Phoenix z²+c+b', desc: 'Phoenix fractal' },
             'magnet': { name: 'Magnet (z²+c-1)²', desc: 'Magnet fractal' },
             'lambda': { name: 'Lambda λz(1-z)', desc: 'Lambda fractal' },
-            'spider': { name: 'Spider z²+c/z', desc: 'Spider fractal' },
             'henon_map': { name: 'Hénon Map', desc: '2D chaotic attractor' },
             'lorenz_attractor': { name: 'Lorenz Attractor', desc: 'Butterfly effect chaos' },
             'logistic_map': { name: 'Logistic rx(1-x)', desc: 'Period-doubling chaos' },
-            'tent_map': { name: 'Tent Map', desc: 'Piecewise linear chaos' },
 
             // === WAVE FUNCTIONS ===
             'wave': { name: 'Wave Interference', desc: 'Constructive/destructive' },
             'ripple': { name: 'Ripple Effect', desc: 'Concentric waves' },
             'standing_wave': { name: 'Standing Wave', desc: 'Node/antinode pattern' },
             'beat_frequency': { name: 'Beat Frequency', desc: 'Amplitude modulation' },
-            'doppler_effect': { name: 'Doppler f(1±v/c)', desc: 'Moving source shift' },
-            'gaussian_wave': { name: 'Gaussian Wave', desc: 'Bell curve packet' },
-            'sinc_function': { name: 'Sinc sin(x)/x', desc: 'Cardinal sine' },
             'chirp': { name: 'Chirp f(t)', desc: 'Frequency sweep' },
-            'morlet_wavelet': { name: 'Morlet Wavelet', desc: 'Gaussian windowed sine' },
-            'mexican_hat': { name: 'Mexican Hat', desc: 'Ricker wavelet' },
-
-            // === SPECIAL PATTERNS ===
-            'dirac_delta': { name: 'Dirac δ(x)', desc: 'Impulse function' },
-            'heaviside_step': { name: 'Heaviside H(x)', desc: 'Unit step function' },
-            'sawtooth': { name: 'Sawtooth Wave', desc: 'Linear ramp' },
-            'square_wave': { name: 'Square Wave', desc: 'Binary switching' },
-            'triangle_wave': { name: 'Triangle Wave', desc: 'Triangular oscillation' },
-            'pulse_train': { name: 'Pulse Train', desc: 'Periodic impulses' },
 
             // === STEREO PANNING EFFECTS ===
             'stereo_real_imag': { name: '🎧 Real/Imaginary Split', desc: 'Real→Left, Imag→Right' },
@@ -1776,8 +1655,8 @@
                 this.lastSample = 0;
                 this.processCounter = 0;
 
-                // Create ScriptProcessorNode with larger buffer
-                this.processor = audioContext.createScriptProcessor(this.bufferSize, 1, 1);
+                // Create ScriptProcessorNode with larger buffer - STEREO
+                this.processor = audioContext.createScriptProcessor(this.bufferSize, 2, 2);
                 this.processor.onaudioprocess = this.processAudio.bind(this);
 
                 // Gain node for output control
@@ -1818,117 +1697,123 @@
                     });
                 }
             }
-
+            // No additional code needed here for parameter updates.
+            // Parameters are updated via updateParams() externally.
             processAudio(event) {
-                const inputData = event.inputBuffer.getChannelData(0);
-                const outputData = event.outputBuffer.getChannelData(0);
-                const bufferLength = inputData.length;
+                const numChannels = Math.min(2, event.inputBuffer.numberOfChannels);
+                const bufferLength = event.inputBuffer.length;
 
-                // Write input data to circular buffer
-                for (let i = 0; i < bufferLength; i++) {
-                    this.inputCircularBuffer[this.writePtr] = inputData[i];
-                    this.writePtr = (this.writePtr + 1) % this.circularBufferSize;
-                }
+                // Process both channels
+                for (let channel = 0; channel < 2; channel++) {
+                    const inputData = event.inputBuffer.getChannelData(Math.min(channel, numChannels - 1));
+                    const outputData = event.outputBuffer.getChannelData(channel);
 
-                // Simple direct processing to avoid circular buffer complexity
-                // Process the current input buffer directly with proper windowing
+                    // Write input data to circular buffer
+                    for (let i = 0; i < bufferLength; i++) {
+                        this.inputCircularBuffer[this.writePtr] = inputData[i];
+                        this.writePtr = (this.writePtr + 1) % this.circularBufferSize;
+                    }
 
-                if (bufferLength >= this.fftSize) {
-                    // Process in overlapping windows
-                    const hopSize = this.fftSize / 4; // 75% overlap for very smooth processing
-                    const tempOutput = new Float32Array(bufferLength);
-                    tempOutput.fill(0); // Initialize to zero for overlap-add
+                    // Simple direct processing to avoid circular buffer complexity
+                    // Process the current input buffer directly with proper windowing
 
-                    for (let windowStart = 0; windowStart < bufferLength - this.fftSize + hopSize; windowStart += hopSize) {
-                        const windowEnd = Math.min(windowStart + this.fftSize, bufferLength);
-                        const actualWindowSize = windowEnd - windowStart;
+                    if (bufferLength >= this.fftSize) {
+                        // Process in overlapping windows
+                        const hopSize = this.fftSize / 4; // 75% overlap for very smooth processing
+                        const tempOutput = new Float32Array(bufferLength);
+                        tempOutput.fill(0); // Initialize to zero for overlap-add
 
-                        if (actualWindowSize < this.fftSize / 2) continue; // Skip tiny windows
+                        for (let windowStart = 0; windowStart < bufferLength - this.fftSize + hopSize; windowStart += hopSize) {
+                            const windowEnd = Math.min(windowStart + this.fftSize, bufferLength);
+                            const actualWindowSize = windowEnd - windowStart;
 
-                        // Extract window
-                        const windowBuffer = new Float32Array(this.fftSize);
-                        windowBuffer.fill(0);
+                            if (actualWindowSize < this.fftSize / 2) continue; // Skip tiny windows
 
-                        for (let i = 0; i < actualWindowSize; i++) {
-                            windowBuffer[i] = inputData[windowStart + i];
-                        }
+                            // Extract window
+                            const windowBuffer = new Float32Array(this.fftSize);
+                            windowBuffer.fill(0);
 
-                        // Process window
-                        const processedWindow = this.processChunk(windowBuffer);
+                            for (let i = 0; i < actualWindowSize; i++) {
+                                windowBuffer[i] = inputData[windowStart + i];
+                            }
 
-                        // Overlap-add to output with proper scaling
-                        const overlapScale = 1.0 / 3.0; // Scale for 75% overlap
-                        for (let i = 0; i < actualWindowSize; i++) {
-                            if (windowStart + i < bufferLength) {
-                                tempOutput[windowStart + i] += processedWindow[i] * overlapScale;
+                            // Process window
+                            const processedWindow = this.processChunk(windowBuffer);
+
+                            // Overlap-add to output with proper scaling
+                            const overlapScale = 1.0 / 3.0; // Scale for 75% overlap
+                            for (let i = 0; i < actualWindowSize; i++) {
+                                if (windowStart + i < bufferLength) {
+                                    tempOutput[windowStart + i] += processedWindow[i] * overlapScale;
+                                }
                             }
                         }
-                    }
 
-                    // Copy to final output with mixing and gain
-                    for (let i = 0; i < bufferLength; i++) {
-                        let processedSample = tempOutput[i];
+                        // Copy to final output with mixing and gain
+                        for (let i = 0; i < bufferLength; i++) {
+                            let processedSample = tempOutput[i];
 
-                        // Apply smoothing to reduce artifacts
-                        if (this.lastSample !== undefined) {
-                            const smoothingAmount = Math.min(0.1, this.params.smoothing);
-                            processedSample = smoothingAmount * this.lastSample + (1 - smoothingAmount) * processedSample;
-                        }
-                        this.lastSample = processedSample;
+                            // Apply smoothing to reduce artifacts
+                            if (this.lastSample !== undefined) {
+                                const smoothingAmount = Math.min(0.1, this.params.smoothing);
+                                processedSample = smoothingAmount * this.lastSample + (1 - smoothingAmount) * processedSample;
+                            }
+                            this.lastSample = processedSample;
 
-                        // Apply dry/wet mix
-                        const originalSample = inputData[i];
-                        let mixedSample = this.params.mix * processedSample + (1 - this.params.mix) * originalSample;
+                            // Apply dry/wet mix
+                            const originalSample = inputData[i];
+                            let mixedSample = this.params.mix * processedSample + (1 - this.params.mix) * originalSample;
 
-                        // Apply gain with soft limiting
-                        mixedSample *= this.params.gain;
-                        if (Math.abs(mixedSample) > 0.95) {
-                            mixedSample = Math.sign(mixedSample) * (0.95 + 0.05 * Math.tanh((Math.abs(mixedSample) - 0.95) * 10));
-                        }
+                            // Apply gain with soft limiting
+                            mixedSample *= this.params.gain;
+                            if (Math.abs(mixedSample) > 0.95) {
+                                mixedSample = Math.sign(mixedSample) * (0.95 + 0.05 * Math.tanh((Math.abs(mixedSample) - 0.95) * 10));
+                            }
 
-                        outputData[i] = mixedSample;
-                    }
-
-                } else {
-                    // Buffer smaller than FFT size - simple processing
-                    const paddedBuffer = new Float32Array(this.fftSize);
-                    paddedBuffer.fill(0);
-
-                    for (let i = 0; i < bufferLength; i++) {
-                        paddedBuffer[i] = inputData[i];
-                    }
-
-                    const processedBuffer = this.processChunk(paddedBuffer);
-
-                    for (let i = 0; i < bufferLength; i++) {
-                        let processedSample = processedBuffer[i];
-
-                        // Apply smoothing
-                        if (this.lastSample !== undefined) {
-                            const smoothingAmount = Math.min(0.1, this.params.smoothing);
-                            processedSample = smoothingAmount * this.lastSample + (1 - smoothingAmount) * processedSample;
-                        }
-                        this.lastSample = processedSample;
-
-                        // Apply mix and gain
-                        const originalSample = inputData[i];
-                        let mixedSample = this.params.mix * processedSample + (1 - this.params.mix) * originalSample;
-
-                        mixedSample *= this.params.gain;
-                        if (Math.abs(mixedSample) > 0.95) {
-                            mixedSample = Math.sign(mixedSample) * (0.95 + 0.05 * Math.tanh((Math.abs(mixedSample) - 0.95) * 10));
+                            outputData[i] = mixedSample;
                         }
 
-                        outputData[i] = mixedSample;
-                    }
-                }
+                    } else {
+                        // Buffer smaller than FFT size - simple processing
+                        const paddedBuffer = new Float32Array(this.fftSize);
+                        paddedBuffer.fill(0);
 
-                // Update processing counter for diagnostics
-                this.processCounter++;
-                if (this.processCounter % 200 === 0) {
-                    const bufferFillPercent = (this.getAvailableData() / this.circularBufferSize * 100).toFixed(1);
-                    console.log(`Processing stable - Buffer: ${bufferFillPercent}%`);
-                }
+                        for (let i = 0; i < bufferLength; i++) {
+                            paddedBuffer[i] = inputData[i];
+                        }
+
+                        const processedBuffer = this.processChunk(paddedBuffer);
+
+                        for (let i = 0; i < bufferLength; i++) {
+                            let processedSample = processedBuffer[i];
+
+                            // Apply smoothing
+                            if (this.lastSample !== undefined) {
+                                const smoothingAmount = Math.min(0.1, this.params.smoothing);
+                                processedSample = smoothingAmount * this.lastSample + (1 - smoothingAmount) * processedSample;
+                            }
+                            this.lastSample = processedSample;
+
+                            // Apply mix and gain
+                            const originalSample = inputData[i];
+                            let mixedSample = this.params.mix * processedSample + (1 - this.params.mix) * originalSample;
+
+                            mixedSample *= this.params.gain;
+                            if (Math.abs(mixedSample) > 0.95) {
+                                mixedSample = Math.sign(mixedSample) * (0.95 + 0.05 * Math.tanh((Math.abs(mixedSample) - 0.95) * 10));
+                            }
+
+                            outputData[i] = mixedSample;
+                        }
+                    }
+
+                    // Update processing counter for diagnostics
+                    this.processCounter++;
+                    if (this.processCounter % 200 === 0) {
+                        const bufferFillPercent = (this.getAvailableData() / this.circularBufferSize * 100).toFixed(1);
+                        console.log(`Processing stable - Buffer: ${bufferFillPercent}%`);
+                    }
+                } // Close channel loop
             }
 
             // Helper method to get available data in circular buffer
@@ -2010,14 +1895,35 @@
                 wetGain.gain.setValueAtTime(realtimeParams.delayMix, ctx.currentTime);
                 dryGain.gain.setValueAtTime(1.0 - realtimeParams.delayMix, ctx.currentTime);
 
+                // Create filter nodes
+                delayLowCutFilter = ctx.createBiquadFilter();
+                delayLowCutFilter.type = 'highpass';
+                delayLowCutFilter.frequency.setValueAtTime(realtimeParams.delayLowCut, ctx.currentTime);
+                delayLowCutFilter.Q.setValueAtTime(0.7, ctx.currentTime);
+
+                delayHighCutFilter = ctx.createBiquadFilter();
+                delayHighCutFilter.type = 'lowpass';
+                delayHighCutFilter.frequency.setValueAtTime(realtimeParams.delayHighCut, ctx.currentTime);
+                delayHighCutFilter.Q.setValueAtTime(0.7, ctx.currentTime);
+
                 // Connect delay feedback loop
                 delay.connect(feedback);
                 feedback.connect(delay);
 
+                // Connect delay chain with filters: delay -> lowcut -> highcut -> wetGain
+                delay.connect(delayLowCutFilter);
+                delayLowCutFilter.connect(delayHighCutFilter);
+                delayHighCutFilter.connect(wetGain);
+
                 // Connect wet/dry mix
-                delay.connect(wetGain);
                 wetGain.connect(outputGain);
                 dryGain.connect(outputGain);
+
+                // Store global references
+                delayNode = delay;
+                delayFeedbackNode = feedback;
+                delayWetGainNode = wetGain;
+                delayDryGainNode = dryGain;
 
                 return {
                     input: delay,
@@ -2090,6 +1996,17 @@
 
                 convolver.buffer = impulse;
 
+                // Create filter nodes
+                reverbLowCutFilter = ctx.createBiquadFilter();
+                reverbLowCutFilter.type = 'highpass';
+                reverbLowCutFilter.frequency.setValueAtTime(realtimeParams.reverbLowCut, ctx.currentTime);
+                reverbLowCutFilter.Q.setValueAtTime(0.7, ctx.currentTime);
+
+                reverbHighCutFilter = ctx.createBiquadFilter();
+                reverbHighCutFilter.type = 'lowpass';
+                reverbHighCutFilter.frequency.setValueAtTime(realtimeParams.reverbHighCut, ctx.currentTime);
+                reverbHighCutFilter.Q.setValueAtTime(0.7, ctx.currentTime);
+
                 // Create wet/dry mix
                 const wetGain = ctx.createGain();
                 const dryGain = ctx.createGain();
@@ -2098,13 +2015,20 @@
                 wetGain.gain.setValueAtTime(realtimeParams.reverbMix, ctx.currentTime);
                 dryGain.gain.setValueAtTime(1.0 - realtimeParams.reverbMix, ctx.currentTime);
 
-                // Connect reverb chain
+                // Connect reverb chain with filters: input -> lowcut -> highcut -> convolver -> wetGain
+                reverbLowCutFilter.connect(reverbHighCutFilter);
+                reverbHighCutFilter.connect(convolver);
                 convolver.connect(wetGain);
                 wetGain.connect(outputGain);
                 dryGain.connect(outputGain);
 
+                // Store global references
+                reverbNode = convolver;
+                reverbWetGainNode = wetGain;
+                reverbDryGainNode = dryGain;
+
                 return {
-                    input: convolver,
+                    input: reverbLowCutFilter,
                     inputDry: dryGain,
                     output: outputGain,
                     reverbNode: convolver,
@@ -2205,7 +2129,7 @@
             return rms;
         }
 
-        // Update RMS measurements and auto gain
+        // Update LUFS measurements and auto gain
         function updateLUFSMeasurements() {
             if (!inputLufsAnalyser || !outputLufsAnalyser) return;
 
@@ -2221,9 +2145,19 @@
             // Auto gain compensation removed - no autoGainNode needed
             updateMemoryInfo(); // Update UI
         }
-
         // Complex function applications with proper frequency transformations
         function applyComplexFunction(real, imag, fftSize, sampleRate, funcName, amount = 1.0, params = null) {
+            // Helper for inverse mapping
+            function inverseFrequencyMapping(normalizedFreq, amount) {
+                const inversionPoint = 0.5;
+                let mapped = inversionPoint - (normalizedFreq - inversionPoint) * amount;
+                if (amount > 1) {
+                    mapped = ((mapped % 1) + 1) % 1; // Wrap into [0,1]
+                } else {
+                    mapped = Math.max(0, Math.min(1, mapped)); // Clamp to [0,1]
+                }
+                return mapped;
+            }
             try {
                 // Use passed params or fall back to global realtimeParams
                 const currentParams = params || realtimeParams;
@@ -2274,157 +2208,271 @@
                     switch (funcName) {
                         // === BASIC OPERATIONS ===
                         case 'power':
-                            // Frequency stretching/compression: amount controls exponent (0.1 to 5.0)
+                            // amount: [0.1, 4.0], controls exponent for stretching/compression.
                             const exponent = 0.1 + (amount * 0.5);
                             mappedFreq = Math.pow(normalizedFreq, exponent);
                             break;
 
                         case 'sqrt':
-                            // Square root expansion: spreads low frequencies
                             mappedFreq = Math.pow(normalizedFreq, 0.5 - amount * 0.03);
                             break;
 
                         case 'cbrt':
-                            // Cube root: even more expansion
                             mappedFreq = Math.pow(normalizedFreq, 0.33 - amount * 0.02);
                             break;
 
                         case 'nroot':
-                            // N-th root: amount controls root (1-20)
                             const rootPower = 1 + amount;
                             mappedFreq = Math.pow(normalizedFreq, 1 / rootPower);
                             break;
 
                         case 'square':
-                            // Square compression: compresses to higher frequencies
                             mappedFreq = Math.pow(normalizedFreq, 2 + amount * 0.5);
                             break;
 
                         case 'cube':
-                            // Cube: severe compression
                             mappedFreq = Math.pow(normalizedFreq, 3 + amount);
                             break;
 
+                        case 'quartic':
+                            mappedFreq = Math.pow(normalizedFreq, 4 + amount);
+                            break;
+
+                        case 'quintic':
+                            mappedFreq = Math.pow(normalizedFreq, 5 + amount);
+                            break;
+
                         case 'inverse':
-                            // Frequency inversion with scaling
-                            mappedFreq = 1 - normalizedFreq * (1 - amount * 0.1);
-                            magnitudeMultiplier = 1 + amount * 0.3;
+                            mappedFreq = inverseFrequencyMapping(normalizedFreq, amount);
+                            magnitudeMultiplier = Math.min(0.5 + 0.2 * Math.tanh(amount), 1.0);
                             break;
 
                         // === LOGARITHMIC & EXPONENTIAL ===
                         case 'log':
-                            // Logarithmic stretching: expands low frequencies dramatically
                             mappedFreq = Math.log(1 + normalizedFreq * (Math.E - 1) * amount) / amount;
                             break;
 
                         case 'log10':
-                            // Base-10 log: different curve shape
                             mappedFreq = Math.log10(1 + normalizedFreq * 9 * amount) / Math.log10(1 + 9 * amount);
                             break;
 
                         case 'log2':
-                            // Base-2 log: computer-friendly stretching
                             mappedFreq = Math.log2(1 + normalizedFreq * 3 * amount) / Math.log2(1 + 3 * amount);
                             break;
 
                         case 'exp':
-                            // Exponential compression: compresses to high frequencies
                             mappedFreq = (Math.exp(normalizedFreq * amount) - 1) / (Math.exp(amount) - 1);
                             break;
 
                         case 'exp2':
-                            // Base-2 exponential: sharp compression
                             mappedFreq = (Math.pow(2, normalizedFreq * amount) - 1) / (Math.pow(2, amount) - 1);
                             break;
 
                         case 'exp10':
-                            // Base-10 exponential: extreme compression
                             mappedFreq = (Math.pow(10, normalizedFreq * amount * 0.5) - 1) / (Math.pow(10, amount * 0.5) - 1);
                             break;
 
                         // === TRIGONOMETRIC FUNCTIONS ===
                         case 'sin':
-                            // Sine wave warping: creates multiple bands
                             mappedFreq = (1 + Math.sin((normalizedFreq * Math.PI * 2 * amount) - Math.PI / 2)) / 2;
                             magnitudeMultiplier = 1 + 0.3 * Math.sin(normalizedFreq * Math.PI * amount);
                             phaseShift = Math.sin(normalizedFreq * Math.PI * amount) * 0.5;
                             break;
 
                         case 'cos':
-                            // Cosine wave warping: different phase than sine
-                            mappedFreq = (1 + Math.cos(normalizedFreq * Math.PI * amount)) / 2;
+                            mappedFreq = (1 + Math.cos((normalizedFreq * Math.PI * 2 * amount) - Math.PI / 2)) / 2;
                             magnitudeMultiplier = 1 + 0.3 * Math.cos(normalizedFreq * Math.PI * amount);
                             break;
 
                         case 'tan':
-                            // Tangent: creates sharp frequency bands
                             const tanInput = (normalizedFreq - 0.5) * Math.PI * 0.8 * amount;
                             mappedFreq = (Math.atan(Math.tan(tanInput)) / (Math.PI * 0.8 * amount)) + 0.5;
                             mappedFreq = Math.max(0, Math.min(1, mappedFreq));
                             break;
 
+                        case 'csc':
+                            mappedFreq = (1 + (1 / Math.sin((normalizedFreq * Math.PI * amount) + 0.01))) / 2;
+                            break;
+
+                        case 'sec':
+                            mappedFreq = (1 + (1 / Math.cos((normalizedFreq * Math.PI * amount) + 0.01))) / 2;
+                            break;
+
+                        case 'cot':
+                            mappedFreq = (1 + (1 / Math.tan((normalizedFreq * Math.PI * amount) + 0.01))) / 2;
+                            break;
+
+                        // === INVERSE TRIGONOMETRIC ===
                         case 'asin':
-                            // Arcsine: S-curve stretching
                             const asinInput = (normalizedFreq * 2 - 1) * Math.min(0.99, amount * 0.1);
                             mappedFreq = (Math.asin(asinInput) / Math.asin(Math.min(0.99, amount * 0.1)) + 1) / 2;
                             break;
 
                         case 'acos':
-                            // Arccosine: inverse S-curve
                             const acosInput = Math.min(0.99, amount * 0.1);
                             mappedFreq = Math.acos(normalizedFreq * acosInput) / Math.acos(acosInput);
                             break;
 
                         case 'atan':
-                            // Arctangent: gentle S-curve with amount scaling
                             const atanInput = (normalizedFreq - 0.5) * amount * 2;
                             mappedFreq = (Math.atan(atanInput) / Math.atan(amount * 2)) * 0.5 + 0.5;
                             break;
 
+                        case 'atan2':
+                            mappedFreq = (Math.atan2(normalizedFreq, amount) + Math.PI) / (2 * Math.PI);
+                            break;
+
                         // === HYPERBOLIC FUNCTIONS ===
                         case 'sinh':
-                            // Hyperbolic sine: exponential-like growth
                             const sinhInput = (normalizedFreq - 0.5) * amount;
                             mappedFreq = Math.tanh(Math.sinh(sinhInput) * 0.5) * 0.5 + 0.5;
                             magnitudeMultiplier = 1 + 0.2 * Math.abs(Math.sinh(sinhInput));
                             break;
 
                         case 'cosh':
-                            // Hyperbolic cosine: U-shaped transformation
                             const coshInput = (normalizedFreq - 0.5) * amount;
                             mappedFreq = (Math.cosh(coshInput) - 1) / (Math.cosh(amount) - 1);
                             break;
 
                         case 'tanh':
-                            // Hyperbolic tangent: saturation function
                             const tanhInput = (normalizedFreq - 0.5) * amount * 3;
                             mappedFreq = (Math.tanh(tanhInput) + 1) / 2;
                             magnitudeMultiplier = 1 + 0.3 * Math.abs(Math.tanh(tanhInput));
                             break;
 
-                        // === COMPLEX OPERATIONS ===
-                        case 'complex_magnitude':
-                            // Distance from origin with phase modulation
-                            const compReal = normalizedFreq * Math.cos(amount);
-                            const compImag = normalizedFreq * Math.sin(amount);
-                            mappedFreq = Math.sqrt(compReal * compReal + compImag * compImag);
+                        case 'csch':
+                            mappedFreq = (1 + (1 / Math.sinh((normalizedFreq * Math.PI * amount) + 0.01))) / 2;
                             break;
+
+                        case 'sech':
+                            mappedFreq = (1 + (1 / Math.cosh((normalizedFreq * Math.PI * amount) + 0.01))) / 2;
+                            break;
+
+                        case 'coth':
+                            mappedFreq = (1 + (1 / Math.tanh((normalizedFreq * Math.PI * amount) + 0.01))) / 2;
+                            break;
+
+                        // === INVERSE HYPERBOLIC ===
+                        case 'asinh':
+                            mappedFreq = (Math.asinh(normalizedFreq * amount) / Math.asinh(amount)) || 0;
+                            break;
+
+                        case 'acosh':
+                            mappedFreq = (Math.acosh(1 + normalizedFreq * (amount - 1)) / Math.acosh(amount)) || 0;
+                            break;
+
+                        case 'atanh':
+                            mappedFreq = (Math.atanh(normalizedFreq * (1 - 1e-6)) / Math.atanh(1 - 1e-6)) * amount;
+                            break;
+
+                        // === COMPLEX NUMBER OPERATIONS ===
+                        case 'complex_magnitude':
+                            // For complex_magnitude, amount controls THETA (angle) for each frequency bin
+                            // Map: new bin = magnitude * exp(i * (phase + amount * normalizedFreq * 2π))
+                            // This rotates each frequency bin by an amount-proportional phase
+                            mappedFreq = normalizedFreq; // Keep frequency bin unchanged
+                            magnitudeMultiplier = 1.0;
+                            phaseShift = amount * normalizedFreq * 2 * Math.PI;
+                            // This will cause wild frequency rotation as amount is moved
+                            // Rotate each frequency bin by amount * normalizedFreq * 2π (wild rotation)
+                            // This is a true complex rotation: new real/imag = magnitude * exp(i * (phase + theta))
+                            // But to "get brand new frequencies from the complex plane", we rotate the bin's phase and
+                            // also shift the frequency bin index by amount * normalizedFreq * (fftSize/2)
+                            // This creates wild frequency rotation and cross-mapping.
+
+                            // Calculate rotation angle (theta) for this bin
+                            const theta = amount * normalizedFreq * 2 * Math.PI;
+
+                            // New phase is phase + theta
+                            const newPhase = phase + theta;
+
+                            // Optionally, shift the frequency bin index by a function of amount and normalizedFreq
+                            // For maximum "wild" effect, let the bin shift wrap around the spectrum
+                            let freqShift = Math.round(amount * Math.sin(normalizedFreq * Math.PI) * (fftSize / 4));
+                            let newBin = i + freqShift;
+
+                            // Wrap newBin into valid range
+                            if (newBin < 1) newBin = 1 + ((newBin + fftSize / 2) % (fftSize / 2));
+                            if (newBin >= fftSize / 2) newBin = 1 + ((newBin - 1) % (fftSize / 2));
+
+                            // Place rotated magnitude/phase into new bin
+                            real[newBin] += magnitude * Math.cos(newPhase);
+                            imag[newBin] += magnitude * Math.sin(newPhase);
+
+                            // Mirror for negative frequencies
+                            const negBin = fftSize - newBin;
+                            if (negBin < fftSize) {
+                                real[negBin] = real[newBin];
+                                imag[negBin] = -imag[newBin];
+                            }
+                            continue;
 
                         case 'complex_phase':
-                            // Phase-based frequency mapping
-                            const phaseAngle = normalizedFreq * Math.PI * amount;
-                            mappedFreq = (Math.atan2(Math.sin(phaseAngle), Math.cos(phaseAngle)) + Math.PI) / (2 * Math.PI);
-                            break;
+                            // Remap frequency bin index to shift frequency, not just rotate phase
+                            // Example: shift bins by amount*normalizedFreq*(fftSize/4) for audible effect
+                            const freqShift_phase = Math.round(amount * Math.sin(normalizedFreq * Math.PI) * (fftSize / 4));
+                            let newBin_phase = i + freqShift_phase;
+
+                            // Wrap newBin into valid range
+                            if (newBin_phase < 1) newBin_phase = 1 + ((newBin_phase + fftSize / 2) % (fftSize / 2));
+                            if (newBin_phase >= fftSize / 2) newBin_phase = 1 + ((newBin_phase - 1) % (fftSize / 2));
+
+                            // Rotate phase as well
+                            const theta_phase = amount * normalizedFreq * 2 * Math.PI;
+                            const newPhase_phase = phase + theta_phase;
+
+                            // Place rotated magnitude/phase into new bin
+                            real[newBin_phase] += magnitude * Math.cos(newPhase_phase);
+                            imag[newBin_phase] += magnitude * Math.sin(newPhase_phase);
+
+                            // Mirror for negative frequencies
+                            const negBin_phase = fftSize - newBin_phase;
+                            if (negBin_phase < fftSize) {
+                                real[negBin_phase] = real[newBin_phase];
+                                imag[negBin_phase] = -imag[newBin_phase];
+                            }
+                            continue;
 
                         case 'conjugate':
-                            // Complex conjugate: frequency mirroring
                             mappedFreq = 1 - normalizedFreq * (amount * 0.1);
                             phaseShift = -phase * amount * 0.1;
                             break;
 
-                        // === PHYSICS EQUATIONS ===
+                        case 'reciprocal':
+                            // True complex reciprocal: 1/(re + i*im)
+                            // Avoid division by zero
+                            if (Math.abs(tempReal[i]) < 1e-12 && Math.abs(tempImag[i]) < 1e-12) {
+                                // If zero, skip or set to zero
+                                continue;
+                            } else {
+                                // Compute reciprocal in complex plane: 1/(a+ib) = (a-ib)/(a^2+b^2)
+                                const denom = tempReal[i] * tempReal[i] + tempImag[i] * tempImag[i];
+                                const recipReal = tempReal[i] / denom;
+                                const recipImag = -tempImag[i] / denom;
+
+                                // Optionally, scale by amount
+                                const outReal = recipReal * amount;
+                                const outImag = recipImag * amount;
+
+                                // Place in same bin (no frequency mapping)
+                                real[i] = outReal;
+                                imag[i] = outImag;
+
+                                // Mirror for negative frequencies
+                                const negBin = fftSize - i;
+                                if (negBin < fftSize) {
+                                    real[negBin] = outReal;
+                                    imag[negBin] = -outImag;
+                                }
+                                continue;
+                            }
+
+                        case 'abs_square':
+                            mappedFreq = normalizedFreq * normalizedFreq * amount;
+                            break;
+
+                        // === FAMOUS PHYSICS EQUATIONS ===
                         case 'schrodinger':
-                            // Quantum harmonic oscillator
                             const x_pos = (normalizedFreq - 0.5) * 6;
                             const n_level = Math.floor(amount) % 10;
                             const hermite = Math.exp(-x_pos * x_pos / 2) * Math.pow(x_pos, n_level);
@@ -2433,113 +2481,554 @@
                             break;
 
                         case 'heisenberg':
-                            // Uncertainty principle: Δx·Δp ≥ ħ/2
                             const uncertainty = amount / (normalizedFreq * 10 + 1);
                             mappedFreq = normalizedFreq * (1 + uncertainty * 0.3);
                             magnitudeMultiplier = 1 + uncertainty * 0.2;
                             break;
 
                         case 'einstein_mass_energy':
-                            // E = mc²: relativistic effects
-                            const velocity = normalizedFreq * 0.99;
-                            const gamma = 1 / Math.sqrt(1 - velocity * velocity);
-                            mappedFreq = normalizedFreq * (1 + (gamma - 1) * amount * 0.1);
-                            magnitudeMultiplier = Math.sqrt(gamma) * (1 + amount * 0.1);
+                            const mass = amount;
+                            const energy = mass * Math.pow(normalizedFreq, 2);
+                            mappedFreq = Math.min(1, Math.max(0, energy));
+                            magnitudeMultiplier = 0.5 + (energy * 3);
                             break;
 
                         case 'planck_radiation':
-                            // Blackbody radiation curve
-                            const temp = 1000 + amount * 500; // Temperature
+                            const temp = 1000 + amount * 500;
                             const planckCurve = Math.pow(normalizedFreq, 3) / (Math.exp(normalizedFreq * 20 / temp) - 1);
                             mappedFreq = normalizedFreq * (1 + planckCurve * amount * 0.1);
                             magnitudeMultiplier = 1 + planckCurve * amount * 0.2;
                             break;
 
+                        case 'maxwell_boltzmann':
+                            const v = normalizedFreq * amount;
+                            mappedFreq = v * v * Math.exp(-v * v / 2);
+                            break;
+
                         case 'wave_equation':
-                            // Standing wave patterns
                             const modeNum = Math.floor(amount) % 20 + 1;
                             const standingWave = Math.sin(normalizedFreq * Math.PI * modeNum);
                             mappedFreq = normalizedFreq * (1 + standingWave * amount * 0.1);
                             magnitudeMultiplier = 1 + Math.abs(standingWave) * amount * 0.3;
                             break;
 
-                        // === FRACTALS ===
-                        case 'mandelbrot':
-                            // Mandelbrot set escape time
-                            let zr = (normalizedFreq - 0.5) * 3;
-                            let zi = 0;
-                            const cr = -0.5 + amount * 0.1;
-                            const ci = 0.6 * amount * 0.1;
-                            let iter = 0;
-                            const maxIter = 50;
-
-                            while (iter < maxIter && zr * zr + zi * zi < 4) {
-                                const temp = zr * zr - zi * zi + cr;
-                                zi = 2 * zr * zi + ci;
-                                zr = temp;
-                                iter++;
-                            }
-
-                            const escape = iter / maxIter;
-                            mappedFreq = normalizedFreq * (0.5 + escape * 0.5 * amount * 0.1);
-                            magnitudeMultiplier = 0.5 + escape * amount * 0.1;
+                        case 'heat_equation':
+                            mappedFreq = normalizedFreq * Math.exp(-amount * normalizedFreq);
                             break;
 
-                        case 'julia':
-                            // Julia set
-                            const juliaC_r = -0.7 + amount * 0.05;
-                            const juliaC_i = 0.27 + amount * 0.05;
-                            let jr = (normalizedFreq - 0.5) * 2;
-                            let ji = 0.1 * amount;
-                            let juliaIter = 0;
+                        case 'lorentz_factor':
+                            const v_lorentz = normalizedFreq * amount;
+                            mappedFreq = normalizedFreq / Math.sqrt(1 - v_lorentz * v_lorentz / (299792458 * 299792458));
+                            break;
 
-                            while (juliaIter < 30 && jr * jr + ji * ji < 4) {
-                                const temp = jr * jr - ji * ji + juliaC_r;
-                                ji = 2 * jr * ji + juliaC_i;
-                                jr = temp;
-                                juliaIter++;
-                            }
+                        case 'schwarzschild':
+                            mappedFreq = normalizedFreq / (1 - amount * normalizedFreq);
+                            break;
 
-                            const juliaEscape = juliaIter / 30;
-                            mappedFreq = normalizedFreq * (0.3 + juliaEscape * 0.7 * amount * 0.1);
+                        case 'compton_scattering':
+                            mappedFreq = normalizedFreq / (1 + amount * (1 - Math.cos(normalizedFreq * Math.PI)));
+                            break;
+
+                        // === SPECIAL FUNCTIONS ===
+                        case 'gamma':
+                            mappedFreq = Math.exp(normalizedFreq * amount) * Math.sqrt(2 * Math.PI / normalizedFreq);
+                            break;
+
+                        case 'factorial':
+                            mappedFreq = Math.exp(normalizedFreq * Math.log(normalizedFreq * amount + 1));
+                            break;
+
+                        case 'zeta':
+                            mappedFreq = 1 / Math.pow(normalizedFreq + 1, amount);
+                            break;
+
+                        case 'eta':
+                            mappedFreq = (1 - Math.pow(-1, normalizedFreq + 1)) / Math.pow(normalizedFreq + 1, amount);
+                            break;
+
+                        case 'bessel_j0':
+                            mappedFreq = Math.abs(Math.sin(normalizedFreq * amount) / (normalizedFreq * amount + 0.01));
+                            break;
+
+                        case 'bessel_y0':
+                            mappedFreq = Math.abs(Math.cos(normalizedFreq * amount) / (normalizedFreq * amount + 0.01));
+                            break;
+
+                        case 'bessel_i0':
+                            mappedFreq = Math.abs(Math.sinh(normalizedFreq * amount) / (normalizedFreq * amount + 0.01));
+                            break;
+
+                        case 'bessel_k0':
+                            mappedFreq = Math.abs(Math.cosh(normalizedFreq * amount) / (normalizedFreq * amount + 0.01));
+                            break;
+
+                        case 'airy_ai':
+                            mappedFreq = Math.abs(Math.sin(Math.pow(normalizedFreq * amount, 1.5)));
+                            break;
+
+                        case 'airy_bi':
+                            mappedFreq = Math.abs(Math.cos(Math.pow(normalizedFreq * amount, 1.5)));
+                            break;
+
+                        case 'erf':
+                            mappedFreq = (2 / Math.sqrt(Math.PI)) * Math.exp(-Math.pow(normalizedFreq * amount, 2));
+                            break;
+
+                        case 'erfc':
+                            mappedFreq = 1 - (2 / Math.sqrt(Math.PI)) * Math.exp(-Math.pow(normalizedFreq * amount, 2));
                             break;
 
                         // === GEOMETRIC TRANSFORMATIONS ===
-                        case 'mobius':
-                            // Möbius transformation: z' = (az + b) / (cz + d)
-                            const a = 1 + amount * 0.1;
-                            const b = amount * 0.05;
-                            const c = amount * 0.03;
-                            const d = 1;
-                            const mobZ = normalizedFreq + 0.1;
-                            mappedFreq = Math.abs((a * mobZ + b) / (c * mobZ + d)) % 1;
+                        case 'mobius': {
+                            const nyquist = sampleRate / 2;
+                            const maxFreq = nyquist * 2;
+                            function mod(n, m) { return ((n % m) + m) % m; }
+                            let shiftedFreq = mod(frequency + amount, maxFreq);
+                            mappedFreq = shiftedFreq / maxFreq;
                             break;
+                        }
 
                         case 'joukowsky':
-                            // Joukowsky airfoil transformation
-                            const jouZ = normalizedFreq * 2 - 1; // -1 to 1
+                            const jouZ = normalizedFreq * 2 - 1;
                             const jouResult = 0.5 * (jouZ + amount * 0.2 / (jouZ + 0.01));
                             mappedFreq = (jouResult + 1) / 2;
                             mappedFreq = Math.max(0, Math.min(1, mappedFreq));
                             break;
 
+                        case 'schwarz_christoffel':
+                            mappedFreq = Math.pow(normalizedFreq, amount) * Math.sin(Math.PI * normalizedFreq * amount);
+                            break;
+
+                        case 'cayley':
+                            mappedFreq = (normalizedFreq - amount) / (normalizedFreq + amount + 0.01);
+                            break;
+
+                        // === SPIRAL TRANSFORMATIONS ===
                         case 'spiral':
-                            // Logarithmic spiral
                             const spiralR = normalizedFreq;
                             const spiralTheta = normalizedFreq * Math.PI * 2 * amount;
                             const spiralX = spiralR * Math.cos(spiralTheta);
                             mappedFreq = (spiralX + 1) / 2;
                             break;
 
-                        // Add more functions...
-                        default:
-                            // For unimplemented functions, apply a default transformation
-                            mappedFreq = Math.pow(normalizedFreq, 1 + amount * 0.1);
+                        case 'fibonacci_spiral':
+                            const phi = (1 + Math.sqrt(5)) / 2;
+                            mappedFreq = Math.pow(phi, normalizedFreq * amount) % 1;
                             break;
-                    }
+
+                        case 'archimedean_spiral':
+                            mappedFreq = (normalizedFreq + amount * normalizedFreq) % 1;
+                            break;
+
+                        case 'fermat_spiral':
+                            mappedFreq = Math.sqrt(normalizedFreq * amount) % 1;
+                            break;
+
+                        case 'hyperbolic_spiral':
+                            mappedFreq = (1 / (normalizedFreq * amount + 0.01)) % 1;
+                            break;
+
+                        case 'ulam_spiral':
+                            mappedFreq = ((normalizedFreq * amount) % 1) * Math.sin(normalizedFreq * Math.PI * amount);
+                            break;
+
+                        // === FRACTALS & CHAOS ===
+                        case 'mandelbrot':
+                            let zr = (normalizedFreq - 0.5) * 3;
+                            let zi = 0;
+                            const cr = -0.5 + amount * 0.1;
+                            const ci = 0.6 * amount * 0.1;
+                            let iter = 0;
+                            const maxIter = 50;
+                            while (iter < maxIter && zr * zr + zi * zi < 4) {
+                                const temp = zr * zr - zi * zi + cr;
+                                zi = 2 * zr * zi + ci;
+                                zr = temp;
+                                iter++;
+                            }
+                            const escape = iter / maxIter;
+                            mappedFreq = normalizedFreq * (0.5 + escape * 0.5 * amount * 0.1);
+                            magnitudeMultiplier = 0.5 + escape * amount * 0.1;
+                            break;
+
+                        case 'julia':
+                            const juliaC_r = -0.7 + amount * 0.05;
+                            const juliaC_i = 0.27 + amount * 0.05;
+                            let jr = (normalizedFreq - 0.5) * 2;
+                            let ji = 0.1 * amount;
+                            let juliaIter = 0;
+                            while (juliaIter < 30 && jr * jr + ji * ji < 4) {
+                                const temp = jr * jr - ji * ji + juliaC_r;
+                                ji = 2 * jr * ji + juliaC_i;
+                                jr = temp;
+                                juliaIter++;
+                            }
+                            const juliaEscape = juliaIter / 30;
+                            mappedFreq = normalizedFreq * (0.3 + juliaEscape * 0.7 * amount * 0.1);
+                            break;
+
+                        case 'burning_ship':
+                            let bsr = (normalizedFreq - 0.5) * 2;
+                            let bsi = 0;
+                            const bcr = -0.4 + amount * 0.05;
+                            const bci = 0.6 * amount * 0.05;
+                            let bsIter = 0;
+                            const bsMaxIter = 40;
+                            while (bsIter < bsMaxIter && bsr * bsr + bsi * bsi < 4) {
+                                const temp = bsr * bsr - bsi * bsi + bcr;
+                                bsi = Math.abs(2 * bsr * bsi) + bci;
+                                bsr = Math.abs(temp);
+                                bsIter++;
+                            }
+                            const bsEscape = bsIter / bsMaxIter;
+                            mappedFreq = normalizedFreq * (0.4 + bsEscape * 0.6 * amount * 0.5);
+                            break;
+
+                        case 'tricorn':
+                            let tr = (normalizedFreq - 0.5) * 2;
+                            let ti = 0;
+                            const tcr = -0.5 + amount * 0.1;
+                            const tci = 0.6 * amount * 0.1;
+                            let tIter = 0;
+                            const tMaxIter = 40;
+                            while (tIter < tMaxIter && tr * tr + ti * ti < 4) {
+                                const temp = tr * tr - ti * ti + tcr;
+                                ti = -2 * tr * ti + tci;
+                                tr = temp;
+                                tIter++;
+                            }
+                            const tEscape = tIter / tMaxIter;
+                            mappedFreq = normalizedFreq * (0.4 + tEscape * 0.6 * amount * 0.1);
+                            break;
+
+                        case 'multibrot':
+                            let mr = (normalizedFreq - 0.5) * 2;
+                            let mi = 0;
+                            const mcr = -0.5 + amount * 0.1;
+                            const mci = 0.6 * amount * 0.1;
+                            let mIter = 0;
+                            const mMaxIter = 40;
+                            const mbPower = Math.round(amount) + 2;
+                            while (mIter < mMaxIter && mr * mr + mi * mi < 4) {
+                                let r = mr, i = mi;
+                                for (let p = 1; p < mbPower; p++) {
+                                    const tempR = r * mr - i * mi;
+                                    const tempI = r * mi + i * mr;
+                                    r = tempR;
+                                    i = tempI;
+                                }
+                                const temp = r + mcr;
+                                mi = i + mci;
+                                mr = temp;
+                                mIter++;
+                            }
+                            const mEscape = mIter / mMaxIter;
+                            mappedFreq = normalizedFreq * (0.4 + mEscape * 0.6 * amount * 0.1);
+                            break;
+
+                        case 'newton_raphson':
+                            let nr = (normalizedFreq - 0.5) * 2;
+                            let ni = 0;
+                            let nIter = 0;
+                            const nMaxIter = 20;
+                            for (; nIter < nMaxIter; nIter++) {
+                                const denom = 3 * (nr * nr - ni * ni);
+                                if (Math.abs(denom) < 1e-6) break;
+                                const temp = nr - (nr * nr * nr - 3 * nr * ni * ni - 1) / denom;
+                                ni = ni - (3 * nr * nr * ni - ni * ni * ni) / denom;
+                                nr = temp;
+                                if (nr * nr + ni * ni > 4) break;
+                            }
+                            const nEscape = nIter / nMaxIter;
+                            mappedFreq = normalizedFreq * (0.5 + nEscape * 0.5 * amount * 0.1);
+                            break;
+
+                        case 'nova':
+                            mappedFreq = normalizedFreq + amount * Math.sin(normalizedFreq * Math.PI * amount);
+                            break;
+
+                        case 'phoenix':
+                            mappedFreq = normalizedFreq + amount * Math.cos(normalizedFreq * Math.PI * amount);
+                            break;
+
+                        case 'magnet':
+                            mappedFreq = Math.abs(Math.sin(normalizedFreq * Math.PI * amount));
+                            break;
+
+                        case 'lambda':
+                            mappedFreq = amount * normalizedFreq * (1 - normalizedFreq);
+                            break;
+
+                        case 'spider':
+                            mappedFreq = Math.abs(normalizedFreq * normalizedFreq + amount / (normalizedFreq + 0.01));
+                            break;
+
+                        case 'henon_map':
+                            let hx = normalizedFreq;
+                            let hy = 0;
+                            const a_henon = 1.4 + amount * 0.1;
+                            const b_henon = 0.3 + amount * 0.01;
+                            let hIter = 0;
+                            const hMaxIter = 20;
+                            for (; hIter < hMaxIter; hIter++) {
+                                const temp = 1 - a_henon * hx * hx + hy;
+                                hy = b_henon * hx;
+                                hx = temp;
+                            }
+                            mappedFreq = (hx + 1) / 2;
+                            break;
+
+                        case 'lorenz_attractor':
+                            let lx = 0.1 + normalizedFreq * 0.8;
+                            let ly = 0;
+                            let lz = 0;
+                            const sigma = 10 + amount;
+                            const rho = 28 + amount * 2;
+                            const beta = 8 / 3;
+                            let lzIter = 0;
+                            const lzMaxIter = 10;
+                            for (; lzIter < lzMaxIter; lzIter++) {
+                                const dx = sigma * (ly - lx) * 0.01;
+                                const dy = (lx * (rho - lz) - ly) * 0.01;
+                                const dz = (lx * ly - beta * lz) * 0.01;
+                                lx += dx;
+                                ly += dy;
+                                lz += dz;
+                            }
+                            mappedFreq = (lx + 30) / 60;
+                            break;
+
+                        case 'logistic_map':
+                            let x = normalizedFreq;
+                            const r = 2.5 + amount * 0.35;
+                            let lIter = 0;
+                            const lMaxIter = 30;
+                            for (; lIter < lMaxIter; lIter++) {
+                                x = r * x * (1 - x);
+                            }
+                            mappedFreq = x;
+                            break;
+
+                        case 'tent_map':
+                            let tx = normalizedFreq;
+                            const tentR = amount;
+                            for (let t = 0; t < 20; t++) {
+                                tx = tx < 0.5 ? tentR * tx : tentR * (1 - tx);
+                            }
+                            mappedFreq = tx;
+                            break;
+
+                        // === WAVE FUNCTIONS ===
+                        case 'wave':
+                            mappedFreq = normalizedFreq + amount * Math.sin(normalizedFreq * Math.PI * amount);
+                            break;
+
+                        case 'ripple':
+                            mappedFreq = normalizedFreq + Math.sin(normalizedFreq * Math.PI * amount) / (amount + 1);
+                            break;
+
+                        case 'standing_wave':
+                            mappedFreq = normalizedFreq * Math.abs(Math.sin(normalizedFreq * Math.PI * amount));
+                            break;
+
+                        case 'beat_frequency':
+                            mappedFreq = normalizedFreq + Math.sin(amount * normalizedFreq * Math.PI * 2) * 0.01;
+                            break;
+
+                        case 'doppler_effect':
+                            mappedFreq = normalizedFreq / (1 - amount * Math.cos(normalizedFreq * Math.PI));
+                            break;
+
+                        case 'gaussian_wave':
+                            mappedFreq = Math.exp(-Math.pow((normalizedFreq - 0.5) * amount, 2));
+                            break;
+
+                        case 'sinc_function':
+                            mappedFreq = Math.abs(Math.sin(normalizedFreq * amount) / (normalizedFreq * amount + 0.01));
+                            break;
+
+                        case 'chirp':
+                            mappedFreq = normalizedFreq + amount * normalizedFreq * normalizedFreq;
+                            break;
+
+                        case 'morlet_wavelet':
+                            mappedFreq = Math.exp(-Math.pow((normalizedFreq - 0.5) * amount, 2)) * Math.cos(2 * Math.PI * normalizedFreq * amount);
+                            break;
+
+                        case 'mexican_hat':
+                            mappedFreq = (1 - Math.pow((normalizedFreq - 0.5) * amount, 2)) * Math.exp(-0.5 * Math.pow((normalizedFreq - 0.5) * amount, 2));
+                            break;
+
+                        // === SPECIAL PATTERNS ===
+                        case 'dirac_delta':
+                            mappedFreq = normalizedFreq === amount ? 1 : 0;
+                            break;
+
+                        case 'heaviside_step':
+                            mappedFreq = normalizedFreq > amount ? 1 : 0;
+                            break;
+
+                        case 'sawtooth':
+                            mappedFreq = (normalizedFreq * amount) % 1;
+                            break;
+
+                        case 'square_wave':
+                            mappedFreq = ((normalizedFreq * amount) % 1) > 0.5 ? 1 : 0;
+                            break;
+
+                        case 'triangle_wave':
+                            mappedFreq = 1 - 4 * Math.abs(Math.round(normalizedFreq * amount - 0.25) - (normalizedFreq * amount - 0.25));
+                            break;
+
+                        case 'pulse_train':
+                            mappedFreq = ((normalizedFreq * amount) % 1) < 0.1 ? 1 : 0;
+                            break;
+
+                        // === STEREO PANNING EFFECTS ===
+                        case 'stereo_real_imag':
+                            // Real component → Left channel, Imaginary → Right channel
+                            mappedFreq = normalizedFreq;
+                            const realComponent = tempReal[i];
+                            const imagComponent = tempImag[i];
+                            // Channel 0 (left) gets real part, Channel 1 (right) gets imaginary
+                            if (currentParams.stereoChannel === 0) {
+                                real[i] = realComponent * amount * 0.5;
+                                imag[i] = imagComponent * amount * 0.1; // Small amount of imag for texture
+                            } else {
+                                real[i] = imagComponent * amount * 0.5;
+                                imag[i] = realComponent * amount * 0.1; // Small amount of real for texture
+                            }
+                            // Mirror for negative frequencies
+                            const negBin_real = fftSize - i;
+                            if (negBin_real < fftSize) {
+                                real[negBin_real] = real[i];
+                                imag[negBin_real] = -imag[i];
+                            }
+                            continue;
+
+                        case 'stereo_mag_phase':
+                            // Magnitude → Left channel, Phase → Right channel
+                            mappedFreq = normalizedFreq;
+                            const magComponent = Math.sqrt(tempReal[i] * tempReal[i] + tempImag[i] * tempImag[i]);
+                            const phaseComponent = Math.atan2(tempImag[i], tempReal[i]);
+                            // Channel 0 (left) gets magnitude, Channel 1 (right) gets phase-derived signal
+                            if (currentParams.stereoChannel === 0) {
+                                real[i] = magComponent * Math.cos(phaseComponent * 0.1) * amount * 0.5;
+                                imag[i] = magComponent * Math.sin(phaseComponent * 0.1) * amount * 0.1;
+                            } else {
+                                real[i] = magComponent * Math.cos(phaseComponent * amount * 0.5) * 0.5;
+                                imag[i] = magComponent * Math.sin(phaseComponent * amount * 0.5) * 0.5;
+                            }
+                            // Mirror for negative frequencies
+                            const negBin_mag = fftSize - i;
+                            if (negBin_mag < fftSize) {
+                                real[negBin_mag] = real[i];
+                                imag[negBin_mag] = -imag[i];
+                            }
+                            continue;
+
+                        case 'stereo_rotation':
+                            // Complex rotation creates rotating panning field
+                            const rotationAngle = amount * normalizedFreq * Math.PI * 2;
+                            // Apply different rotation amounts for each channel
+                            const channelOffset = currentParams.stereoChannel * Math.PI * 0.5; // 90° offset between channels
+                            const finalAngle = rotationAngle + channelOffset;
+                            const rotCos = Math.cos(finalAngle);
+                            const rotSin = Math.sin(finalAngle);
+                            // Rotate the complex number
+                            const rotatedReal = tempReal[i] * rotCos - tempImag[i] * rotSin;
+                            const rotatedImag = tempReal[i] * rotSin + tempImag[i] * rotCos;
+                            mappedFreq = normalizedFreq;
+                            real[i] = rotatedReal;
+                            imag[i] = rotatedImag;
+                            // Mirror for negative frequencies
+                            const negBin_rot = fftSize - i;
+                            if (negBin_rot < fftSize) {
+                                real[negBin_rot] = rotatedReal;
+                                imag[negBin_rot] = -rotatedImag;
+                            }
+                            continue;
+
+                        case 'stereo_spiral_pan':
+                            // Frequency-dependent spiral panning
+                            const spiralAngle = normalizedFreq * amount * Math.PI * 4;
+                            const spiralRadius = normalizedFreq * amount * 0.5;
+                            // Apply different spiral offset for each channel
+                            const spiralChannelOffset = currentParams.stereoChannel * Math.PI; // 180° offset
+                            const spiralPanX = spiralRadius * Math.cos(spiralAngle + spiralChannelOffset);
+                            const spiralPanY = spiralRadius * Math.sin(spiralAngle + spiralChannelOffset);
+                            mappedFreq = normalizedFreq;
+                            real[i] = magnitude * Math.cos(phase + spiralPanX);
+                            imag[i] = magnitude * Math.sin(phase + spiralPanY);
+                            // Mirror for negative frequencies
+                            const negBin_spiral = fftSize - i;
+                            if (negBin_spiral < fftSize) {
+                                real[negBin_spiral] = real[i];
+                                imag[negBin_spiral] = -imag[i];
+                            }
+                            continue;
+
+                        case 'stereo_doppler_pan':
+                            // Moving source simulation with Doppler effect
+                            const velocity = Math.sin(amount * 0.1) * 0.5; // Oscillating velocity
+                            // Apply different velocity directions for each channel
+                            const channelVelocity = currentParams.stereoChannel === 0 ? velocity : -velocity;
+                            const dopplerShift = 1 / (1 + channelVelocity * normalizedFreq);
+                            mappedFreq = normalizedFreq * dopplerShift;
+                            // Pan based on velocity direction
+                            const panPosition = channelVelocity * amount * 0.2;
+                            magnitudeMultiplier = 1 + Math.abs(panPosition) * 0.3;
+                            phaseShift = panPosition * Math.PI;
+                            break;
+
+                        case 'stereo_binaural':
+                            // Binaural beats - slight frequency difference between channels
+                            const beatFreq = amount * 0.5; // Beat frequency in Hz
+                            // Apply frequency offset based on channel
+                            const freqOffset = currentParams.stereoChannel === 0 ? -beatFreq * 0.5 : beatFreq * 0.5;
+                            const channelFreq = normalizedFreq * (1 + freqOffset / (frequency + 1));
+                            mappedFreq = channelFreq;
+                            // Create phase difference for binaural effect
+                            phaseShift = beatFreq * normalizedFreq * Math.PI * currentParams.stereoChannel;
+                            magnitudeMultiplier = 1 + 0.2 * Math.sin(beatFreq * normalizedFreq * Math.PI * 2);
+                            break;
+
+                        // === QUANTUM & EXOTIC ===
+                        case 'quantum_harmonic':
+                            mappedFreq = Math.abs(Math.sin(normalizedFreq * Math.PI * amount));
+                            break;
+
+                        case 'hydrogen_orbital':
+                            mappedFreq = Math.exp(-normalizedFreq * amount) * Math.pow(normalizedFreq, amount);
+                            break;
+
+                        case 'tunneling_effect':
+                            mappedFreq = normalizedFreq * Math.exp(-amount * normalizedFreq);
+                            break;
+
+                        case 'klein_gordon':
+                            mappedFreq = normalizedFreq / Math.sqrt(1 + amount * normalizedFreq * normalizedFreq);
+                            break;
+
+                        case 'dirac_equation':
+                            mappedFreq = normalizedFreq + amount * Math.sin(normalizedFreq * Math.PI * amount);
+                            break;
+
+                        case 'feynman_diagram':
+                            mappedFreq = normalizedFreq + Math.cos(amount * normalizedFreq * Math.PI * 2) * 0.01;
+                            break;
+                    } // <-- Add this closing brace to end the switch statement
 
                     // Apply simple frequency clamping to prevent aliasing
                     mappedFreq = Math.max(0, Math.min(1, mappedFreq));
+
+                    // Add subtle stereo enhancement for non-stereo functions
+                    if (!selectedFunction.startsWith('stereo_') && currentParams.stereoChannel !== undefined) {
+                        // Add slight phase and frequency offset for stereo width
+                        const stereoOffset = (currentParams.stereoChannel - 0.5) * 0.1; // -0.05 to +0.05
+                        phaseShift += stereoOffset * normalizedFreq * Math.PI;
+                        magnitudeMultiplier *= (1 + stereoOffset * 0.2); // Slight level difference
+                    }
 
                     // Convert back to actual frequency in the selected range
                     const newFrequency = minFreq + mappedFreq * (maxFreq - minFreq);
@@ -2692,101 +3181,119 @@
 
                 console.log(`Processing with FFT size: ${fftSize}, hop size: ${hopSize}, amount: ${amount}`);
 
-                const audioData = audioBuffer.getChannelData(0);
                 const sampleRate = audioBuffer.sampleRate;
+                const numChannels = Math.max(2, audioBuffer.numberOfChannels); // Always ensure at least stereo
                 const windowFunc = getWindow(fftSize);
 
-                // Perform STFT
-                const frames = stft(audioData, fftSize, hopSize, windowFunc);
-                const processedFrames = [];
+                // Process all channels (or create stereo from mono)
+                const processedChannels = [];
 
-                console.log(`Processing ${frames.length} frames`);
+                for (let channel = 0; channel < 2; channel++) {
+                    // Get audio data for this channel (duplicate mono if needed)
+                    const audioData = audioBuffer.numberOfChannels > channel ?
+                        audioBuffer.getChannelData(channel) :
+                        audioBuffer.getChannelData(0);
 
-                for (let frameIdx = 0; frameIdx < frames.length; frameIdx++) {
-                    const frame = frames[frameIdx];
-                    const real = getBuffer(fftSize, 'real');
-                    const imag = getBuffer(fftSize, 'imag');
+                    // Perform STFT
+                    const frames = stft(audioData, fftSize, hopSize, windowFunc);
+                    const processedFrames = [];
 
-                    // Copy frame data and zero-pad if necessary
-                    for (let i = 0; i < fftSize; i++) {
-                        real[i] = i < frame.length ? frame[i] : 0;
-                        imag[i] = 0;
+                    console.log(`Processing ${frames.length} frames for channel ${channel}`);
+
+                    for (let frameIdx = 0; frameIdx < frames.length; frameIdx++) {
+                        const frame = frames[frameIdx];
+                        const real = getBuffer(fftSize, 'real');
+                        const imag = getBuffer(fftSize, 'imag');
+
+                        // Copy frame data and zero-pad if necessary
+                        for (let i = 0; i < fftSize; i++) {
+                            real[i] = i < frame.length ? frame[i] : 0;
+                            imag[i] = 0;
+                        }
+
+                        // Forward FFT
+                        fft(real, imag);
+
+                        // Apply function transformation with channel-specific parameters for stereo effects
+                        const channelParams = { ...realtimeParams, stereoChannel: channel };
+                        applyComplexFunction(real, imag, fftSize, sampleRate, selectedFunction, amount, channelParams);
+
+                        // Apply smoothing in frequency domain
+                        if (smoothing > 0) {
+                            for (let i = 1; i < fftSize / 2 - 1; i++) {
+                                const prevReal = real[i - 1];
+                                const prevImag = imag[i - 1];
+                                const nextReal = real[i + 1];
+                                const nextImag = imag[i + 1];
+
+                                real[i] = real[i] * (1 - smoothing) + (prevReal + nextReal) * smoothing / 2;
+                                imag[i] = imag[i] * (1 - smoothing) + (prevImag + nextImag) * smoothing / 2;
+
+                                // Update mirrored bins
+                                real[fftSize - i] = real[i];
+                                imag[fftSize - i] = -imag[i];
+                            }
+                        }
+
+                        // Inverse FFT
+                        ifft(real, imag);
+
+                        // Store raw IFFT output (no additional windowing)
+                        processedFrames.push(real.slice(0, fftSize));
                     }
 
-                    // Forward FFT
-                    fft(real, imag);
+                    // Overlap-add reconstruction with proper normalization
+                    const outputLength = (frames.length - 1) * hopSize + fftSize;
+                    const outputBuffer = new Float32Array(outputLength);
+                    const normBuffer = new Float32Array(outputLength);
 
-                    // Apply complex frequency transformations
-                    applyComplexFunction(real, imag, fftSize, sampleRate, selectedFunction, amount);
-
-                    // Apply smoothing in frequency domain
-                    if (smoothing > 0) {
-                        for (let i = 1; i < fftSize / 2 - 1; i++) {
-                            const prevReal = real[i - 1];
-                            const prevImag = imag[i - 1];
-                            const nextReal = real[i + 1];
-                            const nextImag = imag[i + 1];
-
-                            real[i] = real[i] * (1 - smoothing) + (prevReal + nextReal) * smoothing / 2;
-                            imag[i] = imag[i] * (1 - smoothing) + (prevImag + nextImag) * smoothing / 2;
-
-                            // Update mirrored bins
-                            real[fftSize - i] = real[i];
-                            imag[fftSize - i] = -imag[i];
+                    // Calculate window normalization factor for overlap-add
+                    for (let i = 0; i < frames.length; i++) {
+                        const start = i * hopSize;
+                        for (let j = 0; j < fftSize; j++) {
+                            if (start + j < outputLength) {
+                                normBuffer[start + j] += windowFunc[j] * windowFunc[j];
+                            }
                         }
                     }
 
-                    // Inverse FFT
-                    ifft(real, imag);
-
-                    // Store raw IFFT output (no additional windowing)
-                    processedFrames.push(real.slice(0, fftSize));
-                }
-
-                // Overlap-add reconstruction with proper normalization
-                const outputLength = (frames.length - 1) * hopSize + fftSize;
-                const outputBuffer = new Float32Array(outputLength);
-                const normBuffer = new Float32Array(outputLength);
-
-                // Calculate window normalization factor for overlap-add
-                for (let i = 0; i < frames.length; i++) {
-                    const start = i * hopSize;
-                    for (let j = 0; j < fftSize; j++) {
-                        if (start + j < outputLength) {
-                            normBuffer[start + j] += windowFunc[j] * windowFunc[j];
+                    // Reconstruct with proper windowing and normalization
+                    for (let i = 0; i < processedFrames.length; i++) {
+                        const start = i * hopSize;
+                        for (let j = 0; j < fftSize; j++) {
+                            if (start + j < outputLength) {
+                                // Apply synthesis window and accumulate
+                                outputBuffer[start + j] += processedFrames[i][j] * windowFunc[j];
+                            }
                         }
                     }
-                }
 
-                // Reconstruct with proper windowing and normalization
-                for (let i = 0; i < processedFrames.length; i++) {
-                    const start = i * hopSize;
-                    for (let j = 0; j < fftSize; j++) {
-                        if (start + j < outputLength) {
-                            // Apply synthesis window and accumulate
-                            outputBuffer[start + j] += processedFrames[i][j] * windowFunc[j];
+                    // Normalize to prevent amplitude modulation
+                    for (let i = 0; i < outputLength; i++) {
+                        if (normBuffer[i] > 1e-12) {
+                            outputBuffer[i] /= normBuffer[i];
                         }
                     }
-                }
 
-                // Normalize to prevent amplitude modulation
-                for (let i = 0; i < outputLength; i++) {
-                    if (normBuffer[i] > 1e-12) {
-                        outputBuffer[i] /= normBuffer[i];
+                    // Mix with original signal for this channel
+                    const originalAudioData = audioBuffer.numberOfChannels > channel ?
+                        audioBuffer.getChannelData(channel) :
+                        audioBuffer.getChannelData(0);
+                    const mixedBuffer = new Float32Array(Math.min(outputBuffer.length, originalAudioData.length));
+                    for (let i = 0; i < mixedBuffer.length; i++) {
+                        const dry = originalAudioData[i];
+                        const wet = outputBuffer[i] * gain;
+                        mixedBuffer[i] = dry * (1 - mixValue) + wet * mixValue;
                     }
+
+                    processedChannels.push(mixedBuffer);
                 }
 
-                // Mix with original signal
-                const mixedBuffer = new Float32Array(Math.min(outputBuffer.length, audioData.length));
-                for (let i = 0; i < mixedBuffer.length; i++) {
-                    const dry = audioData[i];
-                    const wet = outputBuffer[i] * gain;
-                    mixedBuffer[i] = dry * (1 - mixValue) + wet * mixValue;
-                }
-
-                // Create new audio buffer
-                const newBuffer = ctx.createBuffer(1, mixedBuffer.length, sampleRate);
-                newBuffer.copyToChannel(mixedBuffer, 0);
+                // Create new stereo audio buffer
+                const finalLength = Math.min(processedChannels[0].length, processedChannels[1].length);
+                const newBuffer = ctx.createBuffer(2, finalLength, sampleRate);
+                newBuffer.copyToChannel(processedChannels[0], 0); // Left channel
+                newBuffer.copyToChannel(processedChannels[1], 1); // Right channel
 
                 showStatus('Audio processing complete!', 'success');
                 updateMemoryInfo();
@@ -2930,8 +3437,8 @@
             if (!ctx || (!audioBufferA && !audioBufferB)) return;
 
             try {
-                // Create script processor for real-time effects
-                scriptProcessor = ctx.createScriptProcessor(4096, 1, 1);
+                // Create script processor for real-time effects - STEREO
+                scriptProcessor = ctx.createScriptProcessor(4096, 2, 2);
                 analyser = ctx.createAnalyser();
                 analyser.fftSize = 2048;
                 analyser.smoothingTimeConstant = 0.3;
@@ -2941,10 +3448,10 @@
                 const hopSize = fftSize / 4; // 75% overlap
                 const windowFunc = createOptimalHannWindow(fftSize, hopSize);
 
-                // Delay line for overlap-add
-                let inputDelay = new Float32Array(fftSize);
-                let outputDelay = new Float32Array(fftSize);
-                let frameCounter = 0;
+                // Delay lines for overlap-add - separate for each channel
+                let inputDelayChannels = [new Float32Array(fftSize), new Float32Array(fftSize)];
+                let outputDelayChannels = [new Float32Array(fftSize), new Float32Array(fftSize)];
+                let frameCounterChannels = [0, 0];
 
                 // Initialize processor parameters with all current settings
                 scriptProcessor.params = {
@@ -2956,73 +3463,80 @@
                 realtimeProcessor = scriptProcessor;
 
                 scriptProcessor.onaudioprocess = function (audioProcessingEvent) {
-                    const input = audioProcessingEvent.inputBuffer.getChannelData(0);
-                    const output = audioProcessingEvent.outputBuffer.getChannelData(0);
+                    // Process both channels
+                    for (let channel = 0; channel < 2; channel++) {
+                        const input = audioProcessingEvent.inputBuffer.getChannelData(Math.min(channel, audioProcessingEvent.inputBuffer.numberOfChannels - 1));
+                        const output = audioProcessingEvent.outputBuffer.getChannelData(channel);
 
-                    // Get current parameters from the processor object
-                    let amount = scriptProcessor.params.amount;
-                    const mixValue = scriptProcessor.params.mix;
-                    const gain = scriptProcessor.params.gain;
+                        // Get current parameters from the processor object
+                        let amount = scriptProcessor.params.amount;
+                        const mixValue = scriptProcessor.params.mix;
+                        const gain = scriptProcessor.params.gain;
 
-                    // Apply modulation to amount if enabled
-                    if (scriptProcessor.params.modEnabled) {
-                        const minAmount = scriptProcessor.params.modMinAmount || 0.0;
-                        const maxAmount = scriptProcessor.params.modMaxAmount || amount;
-                        const currentTime = ctx.currentTime;
-                        const startTime = scriptProcessor.params.modStartTime;
-                        const modPeriod = scriptProcessor.params.modPeriod;
+                        // Apply modulation to amount if enabled
+                        if (scriptProcessor.params.modEnabled) {
+                            const minAmount = scriptProcessor.params.modMinAmount || 0.0;
+                            const maxAmount = scriptProcessor.params.modMaxAmount || amount;
+                            const currentTime = ctx.currentTime;
+                            const startTime = scriptProcessor.params.modStartTime;
+                            const modPeriod = scriptProcessor.params.modPeriod;
 
-                        // Calculate elapsed time and position in modulation cycle
-                        const elapsedTime = currentTime - startTime;
-                        const normalizedPosition = (elapsedTime % modPeriod) / modPeriod;
+                            // Calculate elapsed time and position in modulation cycle
+                            const elapsedTime = currentTime - startTime;
+                            const normalizedPosition = (elapsedTime % modPeriod) / modPeriod;
 
-                        // Sinusoidal modulation between min and max bounds
-                        const modulationFactor = Math.sin(normalizedPosition * 2 * Math.PI);
-                        amount = minAmount + (maxAmount - minAmount) * (modulationFactor * 0.5 + 0.5);
-                    }
-
-                    for (let n = 0; n < input.length; n++) {
-                        // Shift delay lines
-                        for (let i = 0; i < fftSize - 1; i++) {
-                            inputDelay[i] = inputDelay[i + 1];
-                            outputDelay[i] = outputDelay[i + 1];
-                        }
-                        inputDelay[fftSize - 1] = input[n];
-                        outputDelay[fftSize - 1] = 0;
-
-                        // Process frame every hopSize samples
-                        if (frameCounter % hopSize === 0) {
-                            // Prepare FFT buffers
-                            const real = new Float32Array(fftSize);
-                            const imag = new Float32Array(fftSize);
-
-                            // Apply window to input
-                            for (let i = 0; i < fftSize; i++) {
-                                real[i] = inputDelay[i] * windowFunc[i];
-                                imag[i] = 0;
-                            }
-
-                            // Forward FFT
-                            fft(real, imag);
-
-                            // Apply frequency transformation
-                            applyComplexFunction(real, imag, fftSize, ctx.sampleRate, selectedFunction, amount);
-
-                            // Inverse FFT
-                            ifft(real, imag);
-
-                            // Apply synthesis window and overlap-add
-                            for (let i = 0; i < fftSize; i++) {
-                                outputDelay[i] += real[i] * windowFunc[i];
-                            }
+                            // Sinusoidal modulation between min and max bounds
+                            const modulationFactor = Math.sin(normalizedPosition * 2 * Math.PI);
+                            amount = minAmount + (maxAmount - minAmount) * (modulationFactor * 0.5 + 0.5);
                         }
 
-                        // Output with proper mix
-                        const wet = outputDelay[0] * gain;
-                        output[n] = input[n] * (1 - mixValue) + wet * mixValue;
+                        for (let n = 0; n < input.length; n++) {
+                            // Shift delay lines for this channel
+                            const inputDelay = inputDelayChannels[channel];
+                            const outputDelay = outputDelayChannels[channel];
 
-                        frameCounter++;
-                    }
+                            for (let i = 0; i < fftSize - 1; i++) {
+                                inputDelay[i] = inputDelay[i + 1];
+                                outputDelay[i] = outputDelay[i + 1];
+                            }
+                            inputDelay[fftSize - 1] = input[n];
+                            outputDelay[fftSize - 1] = 0;
+
+                            // Process frame every hopSize samples for this channel
+                            if (frameCounterChannels[channel] % hopSize === 0) {
+                                // Prepare FFT buffers
+                                const real = new Float32Array(fftSize);
+                                const imag = new Float32Array(fftSize);
+
+                                // Apply window to input
+                                for (let i = 0; i < fftSize; i++) {
+                                    real[i] = inputDelay[i] * windowFunc[i];
+                                    imag[i] = 0;
+                                }
+
+                                // Forward FFT
+                                fft(real, imag);
+
+                                // Apply frequency transformation with channel-specific parameters
+                                const channelParams = { ...scriptProcessor.params, stereoChannel: channel };
+                                applyComplexFunction(real, imag, fftSize, ctx.sampleRate, selectedFunction, amount, channelParams);
+
+                                // Inverse FFT
+                                ifft(real, imag);
+
+                                // Apply synthesis window and overlap-add
+                                for (let i = 0; i < fftSize; i++) {
+                                    outputDelay[i] += real[i] * windowFunc[i];
+                                }
+                            }
+
+                            // Output with proper mix
+                            const wet = outputDelay[0] * gain;
+                            output[n] = input[n] * (1 - mixValue) + wet * mixValue;
+
+                            frameCounterChannels[channel]++;
+                        }
+                    } // Close channel loop
                 };
 
                 return scriptProcessor;
@@ -3252,6 +3766,37 @@
                 (min, max) => {
                     realtimeParams.delayLowCut = min;
                     realtimeParams.delayHighCut = max;
+
+                    // Ensure delay filter nodes exist
+                    if (!delayLowCutFilter || !delayHighCutFilter) {
+                        if (ctx && delayNode) {
+                            // Create filters if not already present
+                            delayLowCutFilter = ctx.createBiquadFilter();
+                            delayLowCutFilter.type = 'highpass';
+                            delayLowCutFilter.frequency.value = min;
+                            delayLowCutFilter.Q.value = 0.7;
+
+                            delayHighCutFilter = ctx.createBiquadFilter();
+                            delayHighCutFilter.type = 'lowpass';
+                            delayHighCutFilter.frequency.value = max;
+                            delayHighCutFilter.Q.value = 0.7;
+
+                            // Insert filters into delay chain: delay -> lowcut -> highcut -> wetGain
+                            if (delayWetGainNode) {
+                                // Disconnect existing delay -> wetGain connection
+                                delayNode.disconnect(delayWetGainNode);
+
+                                // Connect new chain: delay -> lowcut -> highcut -> wetGain
+                                delayNode.connect(delayLowCutFilter);
+                                delayLowCutFilter.connect(delayHighCutFilter);
+                                delayHighCutFilter.connect(delayWetGainNode);
+                            }
+                        }
+                    } else {
+                        // Update filter frequencies
+                        delayLowCutFilter.frequency.setTargetAtTime(min, ctx.currentTime, 0.01);
+                        delayHighCutFilter.frequency.setTargetAtTime(max, ctx.currentTime, 0.01);
+                    }
                 },
                 (min, max) => `${formatFreq(min)} → ${formatFreq(max)}`
             );
@@ -3261,6 +3806,37 @@
                 (min, max) => {
                     realtimeParams.reverbLowCut = min;
                     realtimeParams.reverbHighCut = max;
+
+                    // Ensure reverb filter nodes exist
+                    if (!reverbLowCutFilter || !reverbHighCutFilter) {
+                        if (ctx && reverbNode) {
+                            // Create filters if not already present
+                            reverbLowCutFilter = ctx.createBiquadFilter();
+                            reverbLowCutFilter.type = 'highpass';
+                            reverbLowCutFilter.frequency.value = min;
+                            reverbLowCutFilter.Q.value = 0.7;
+
+                            reverbHighCutFilter = ctx.createBiquadFilter();
+                            reverbHighCutFilter.type = 'lowpass';
+                            reverbHighCutFilter.frequency.value = max;
+                            reverbHighCutFilter.Q.value = 0.7;
+
+                            // Insert filters into reverb chain: input -> lowcut -> highcut -> convolver
+                            if (reverbWetGainNode) {
+                                // Disconnect existing reverb -> wetGain connection
+                                reverbNode.disconnect(reverbWetGainNode);
+
+                                // Connect new chain: input -> lowcut -> highcut -> reverb -> wetGain
+                                reverbLowCutFilter.connect(reverbHighCutFilter);
+                                reverbHighCutFilter.connect(reverbNode);
+                                reverbNode.connect(reverbWetGainNode);
+                            }
+                        }
+                    } else {
+                        // Update filter frequencies
+                        reverbLowCutFilter.frequency.setTargetAtTime(min, ctx.currentTime, 0.01);
+                        reverbHighCutFilter.frequency.setTargetAtTime(max, ctx.currentTime, 0.01);
+                    }
                 },
                 (min, max) => `${formatFreq(min)} → ${formatFreq(max)}`
             );
@@ -3330,12 +3906,12 @@
                     case 'inverse': return { min: 0.2, max: 5.0, optimal: 1.5 };
 
                     // Logarithmic & Exponential - Adjusted for audio frequency range
-                    case 'log': return { min: 0.1, max: 8.0, optimal: 2.0 };
+                    case 'log': return { min: 0.1, max: 30.0, optimal: 2.0 };
                     case 'log10': return { min: 0.5, max: 15.0, optimal: 5.0 };
-                    case 'log2': return { min: 0.3, max: 12.0, optimal: 4.0 };
-                    case 'exp': return { min: 0.01, max: 0.4, optimal: 0.15 };
-                    case 'exp2': return { min: 0.05, max: 0.6, optimal: 0.25 };
-                    case 'exp10': return { min: 0.005, max: 0.15, optimal: 0.05 };
+                    case 'log2': return { min: 0.3, max: 30.0, optimal: 4.0 };
+                    case 'exp': return { min: 0.01, max: 2, optimal: 1.0 };
+                    case 'exp2': return { min: 0.05, max: 2.0, optimal: 0.25 };
+                    case 'exp10': return { min: 0.005, max: 0.5, optimal: 0.2 };
 
                     // Trigonometric - Optimized for harmonic effects
                     case 'sin': return { min: 0.5, max: 25.0, optimal: 8.0 };
@@ -3348,7 +3924,7 @@
                     // Hyperbolic - Tuned for dynamic range
                     case 'sinh': return { min: 0.05, max: 1.8, optimal: 0.6 };
                     case 'cosh': return { min: 0.05, max: 1.8, optimal: 0.6 };
-                    case 'tanh': return { min: 0.5, max: 15.0, optimal: 5.0 };
+                    case 'tanh': return { min: 0.01, max: 3.0, optimal: 1.0 };
                     case 'asinh': return { min: 0.3, max: 8.0, optimal: 3.0 };
                     case 'acosh': return { min: 0.2, max: 4.0, optimal: 1.5 };
                     case 'atanh': return { min: 0.1, max: 1.5, optimal: 0.8 };
@@ -3361,14 +3937,14 @@
                     case 'airy_ai': return { min: 0.5, max: 15.0, optimal: 6.0 };
 
                     // Fractal Functions - Balanced for audio stability
-                    case 'mandelbrot': return { min: 0.2, max: 3.0, optimal: 1.0 };
+                    case 'mandelbrot': return { min: 0.01, max: 10.0, optimal: 5.0 };
                     case 'julia': return { min: 0.1, max: 2.5, optimal: 0.8 };
                     case 'burning_ship': return { min: 0.1, max: 1.8, optimal: 0.6 };
                     case 'newton_raphson': return { min: 0.1, max: 1.5, optimal: 0.5 };
                     case 'logistic_map': return { min: 1.0, max: 3.9, optimal: 2.8 };
 
                     // Geometric Transformations
-                    case 'mobius': return { min: 0.3, max: 8.0, optimal: 2.5 };
+                    case 'mobius': return { min: -16000, max: 16000, optimal: 0 };
                     case 'joukowsky': return { min: 0.2, max: 4.0, optimal: 1.5 };
 
                     // Spiral Transformations - Enhanced for motion effects
@@ -3390,26 +3966,80 @@
                     case 'wave_equation': return { min: 0.3, max: 15.0, optimal: 5.0 };
                     case 'lorentz_factor': return { min: 0.1, max: 3.0, optimal: 1.0 };
                     case 'schwarzschild': return { min: 0.1, max: 4.0, optimal: 1.2 };
+                    case 'hydrogen_orbital': return { min: 0.001, max: 2.0, optimal: 2.0 };
 
                     // Default for unspecified functions
                     default: return { min: 0.1, max: 20.0, optimal: 1.0 };
                 }
             }
-
             // Initialize function grid
+            // Function categories mapping
+            const functionCategories = {
+                'basic': ['power', 'sqrt', 'cbrt', 'nroot', 'square', 'cube', 'quartic', 'quintic', 'inverse'],
+                'logarithmic': ['log', 'log10', 'log2', 'exp', 'exp2', 'exp10'],
+                'trigonometric': ['sin', 'cos', 'tan', 'csc', 'sec', 'cot', 'asin', 'acos', 'atan', 'atan2'],
+                'hyperbolic': ['sinh', 'cosh', 'tanh', 'csch', 'sech', 'coth', 'asinh', 'acosh', 'atanh'],
+                'complex': ['complex_magnitude', 'complex_phase', 'conjugate', 'reciprocal', 'abs_square'],
+                'physics': ['schrodinger', 'heisenberg', 'einstein_mass_energy', 'planck_radiation', 'maxwell_boltzmann', 'wave_equation', 'heat_equation', 'lorentz_factor', 'schwarzschild', 'compton_scattering'],
+                'special': ['gamma', 'factorial', 'zeta', 'eta', 'bessel_j0', 'bessel_y0', 'bessel_i0', 'bessel_k0', 'airy_ai', 'airy_bi', 'erf', 'erfc'],
+                'geometric': ['mobius', 'joukowsky', 'schwarz_christoffel', 'cayley'],
+                'spirals': ['spiral', 'fibonacci_spiral', 'archimedean_spiral', 'fermat_spiral', 'hyperbolic_spiral', 'ulam_spiral'],
+                'fractals': ['mandelbrot', 'julia', 'burning_ship', 'tricorn', 'multibrot', 'newton_raphson', 'nova', 'phoenix', 'magnet', 'lambda', 'spider', 'henon_map', 'lorenz_attractor', 'logistic_map', 'tent_map'],
+                'wave': ['wave', 'ripple', 'standing_wave', 'beat_frequency', 'doppler_effect', 'gaussian_wave', 'sinc_function', 'chirp', 'morlet_wavelet', 'mexican_hat'],
+                'patterns': ['dirac_delta', 'heaviside_step', 'sawtooth', 'square_wave', 'triangle_wave', 'pulse_train'],
+                'quantum': ['quantum_harmonic', 'hydrogen_orbital', 'tunneling_effect', 'klein_gordon', 'dirac_equation', 'feynman_diagram']
+            };
+
             function initFunctionSelect() {
-                const select = document.getElementById('functionSelect');
+                const categorySelect = document.getElementById('functionCategorySelect');
+                const functionSelect = document.getElementById('functionSelect');
 
-                // Set initial value
-                select.value = selectedFunction;
+                // Function to populate function dropdown based on category
+                function populateFunctions(category) {
+                    functionSelect.innerHTML = '';
 
-                // Add event listener
-                select.addEventListener('change', function () {
-                    selectedFunction = this.value;
+                    if (functionCategories[category]) {
+                        functionCategories[category].forEach(funcKey => {
+                            if (complexFunctions[funcKey]) {
+                                const option = document.createElement('option');
+                                option.value = funcKey;
+                                option.textContent = `${complexFunctions[funcKey].name} - ${complexFunctions[funcKey].desc}`;
+                                option.title = complexFunctions[funcKey].desc;
+                                functionSelect.appendChild(option);
+                            }
+                        });
+                    }
 
-                    // Update slider range based on selected function
+                    // Set first option as selected if no current selection
+                    if (functionSelect.options.length > 0 && !functionSelect.value) {
+                        functionSelect.value = functionSelect.options[0].value;
+                        selectedFunction = functionSelect.value;
+                    }
+                }
+
+                // Initialize with basic category
+                populateFunctions('basic');
+                categorySelect.value = 'basic';
+
+                // Set initial function if it exists
+                if (selectedFunction && functionSelect.querySelector(`option[value="${selectedFunction}"]`)) {
+                    functionSelect.value = selectedFunction;
+                } else {
+                    selectedFunction = functionSelect.value;
+                }
+
+                // Category change event
+                categorySelect.addEventListener('change', function () {
+                    populateFunctions(this.value);
+                    selectedFunction = functionSelect.value;
                     updateSliderRange(selectedFunction);
+                    showStatus(`Category changed. Function set to: ${complexFunctions[selectedFunction].name}`, 'info');
+                });
 
+                // Function change event
+                functionSelect.addEventListener('change', function () {
+                    selectedFunction = this.value;
+                    updateSliderRange(selectedFunction);
                     showStatus(`Function changed to: ${complexFunctions[selectedFunction].name}`, 'info');
                 });
             }
@@ -3543,8 +4173,16 @@
                         }
                         document.getElementById('gainValue').textContent = displayText;
 
-                        if (realtimeProcessor && realtimeProcessor.params) {
-                            realtimeProcessor.params.gain = realtimeParams.gain;
+                        // Update FadeSync maximum if FadeSync is enabled
+                        if (realtimeParams.fadeSyncEnabled) {
+                            realtimeParams.fadeSyncMaxFunctionGainDb = gainDb;
+                            // Recalculate the faded gain based on current crossfader position
+                            updateFadeSyncMix();
+                        } else {
+                            // Normal behavior when FadeSync is off
+                            if (realtimeProcessor && realtimeProcessor.params) {
+                                realtimeProcessor.params.gain = realtimeParams.gain;
+                            }
                         }
                     },
 
@@ -4527,7 +5165,6 @@
                     crossfaderValue.textContent = `A:${percentA}% B:${percentB}%`;
                 }
             }
-
             // FadeSync: Effects intensity based on crossfader position
             // 100% Track A (0) = 0% effects, 50/50 mix (50) = 100% effects, 100% Track B (100) = 0% effects
             function updateFadeSyncMix() {
@@ -4589,192 +5226,235 @@
                     reverbDryGainNode.gain.setTargetAtTime(1.0 - reverbMix, ctx.currentTime, 0.01);
                     console.log(`Reverb audio nodes updated: wet=${reverbMix.toFixed(3)}, dry=${(1.0 - reverbMix).toFixed(3)}`);
                 }
+
+                // --- FadeSync Function Gain (Gain knob under Mathematical Function) ---
+                // If function gain is set (dB), fade it from 0dB at crossfader extremes to max at center
+                if (typeof realtimeParams.fadeSyncMaxFunctionGainDb === 'number' && realtimeParams.fadeSyncMaxFunctionGainDb > -60) {
+                    // At center: max dB, at edges: 0dB (smooth sine curve)
+                    const functionGainDb = effectsMixFactor * realtimeParams.fadeSyncMaxFunctionGainDb;
+                    realtimeParams.gain = functionGainDb <= -60 ? 0 : Math.pow(10, functionGainDb / 20);
+
+                    // Update function gain slider and display with smooth transitions
+                    const gainSlider = document.getElementById('gainSlider');
+                    const gainValue = document.getElementById('gainValue');
+                    if (gainSlider && gainValue) {
+                        gainSlider.value = functionGainDb <= -60 ? -60 : functionGainDb;
+                        gainValue.textContent = functionGainDb <= -60
+                            ? '-∞dB'
+                            : (functionGainDb >= 0 ? '+' : '') + functionGainDb.toFixed(1) + 'dB';
+                    }
+                    // Update processor param with smooth transition
+                    if (realtimeProcessor && realtimeProcessor.params) {
+                        realtimeProcessor.params.gain = realtimeParams.gain;
+                    }
+
+                    console.log(`FadeSync Function Gain - Factor: ${effectsMixFactor.toFixed(3)}, Max: ${realtimeParams.fadeSyncMaxFunctionGainDb.toFixed(1)}dB, Current: ${functionGainDb.toFixed(1)}dB`);
+                }
+
+                // --- FadeSync Output Gain (Master Output) ---
+                if (typeof realtimeParams.fadeSyncMaxOutputGainDb === 'number') {
+                    const outputGainDb = effectsMixFactor * realtimeParams.fadeSyncMaxOutputGainDb;
+                    realtimeParams.outputGainDb = outputGainDb;
+                    realtimeParams.finalOutputGain = outputGainDb <= -60 ? 0 : Math.pow(10, outputGainDb / 20);
+
+                    if (finalOutputGainNode) {
+                        finalOutputGainNode.gain.setTargetAtTime(realtimeParams.finalOutputGain, ctx.currentTime, 0.01);
+                    }
+                    const outputGainSlider = document.getElementById('outputGainSlider');
+                    const outputGainValue = document.getElementById('outputGainValue');
+                    if (outputGainSlider && outputGainValue) {
+                        outputGainSlider.value = outputGainDb <= -60 ? -60 : outputGainDb;
+                        outputGainValue.textContent = outputGainDb <= -60
+                            ? '-∞dB'
+                            : (outputGainDb >= 0 ? '+' : '') + outputGainDb.toFixed(1) + 'dB';
+                    }
+                }
             }
 
-            // Crossfader slider event listener
-            document.getElementById('crossfaderSlider').addEventListener('input', function () {
-                realtimeParams.crossfaderValue = parseFloat(this.value);
-                updateCrossfaderGains();
-                // Update FadeSync mix if enabled
-                if (realtimeParams.fadeSyncEnabled) {
-                    updateFadeSyncMix();
-                }
-            });
+            // Crossfader handler with FadeSync support
+            const crossfaderSlider = document.getElementById('crossfaderSlider');
+            const fadeSyncCheckbox = document.getElementById('fadeSyncCrossfader');
 
-            // FadeSync crossfader checkbox
-            document.getElementById('fadeSyncCrossfader').addEventListener('change', function () {
-                realtimeParams.fadeSyncEnabled = this.checked;
-                showStatus(`FadeSync: ${this.checked ? 'ON' : 'OFF'}`, 'info');
+            if (crossfaderSlider) {
+                crossfaderSlider.addEventListener('input', function () {
+                    realtimeParams.crossfaderValue = parseInt(this.value);
+                    updateCrossfaderGains();
 
-                // Capture current slider values as maximums when FadeSync is enabled
-                if (this.checked) {
-                    // Capture current transform mix maximum
-                    const mixSlider = document.getElementById('mixSlider');
-                    if (mixSlider) {
-                        realtimeParams.fadeSyncMaxTransformMix = parseInt(mixSlider.value) / 100;
+                    // Update FadeSync if enabled
+                    if (realtimeParams.fadeSyncEnabled) {
+                        updateFadeSyncMix();
                     }
+                });
+            }
 
-                    // Capture current delay mix maximum
-                    const delayMixSlider = document.getElementById('delayMixSlider');
-                    if (delayMixSlider) {
-                        realtimeParams.fadeSyncMaxDelayMix = parseInt(delayMixSlider.value) / 100;
+            if (fadeSyncCheckbox) {
+                fadeSyncCheckbox.addEventListener('change', function () {
+                    realtimeParams.fadeSyncEnabled = this.checked;
+
+                    if (this.checked) {
+                        // Capture current effect values as maximums for FadeSync
+                        realtimeParams.fadeSyncMaxTransformMix = realtimeParams.mix;
+                        realtimeParams.fadeSyncMaxDelayMix = realtimeParams.delayMix;
+                        realtimeParams.fadeSyncMaxReverbMix = realtimeParams.reverbMix;
+
+                        // Capture function gain - ensure we have a meaningful value
+                        const currentGainDb = realtimeParams.gain > 0 ? 20 * Math.log10(realtimeParams.gain) : 0;
+                        realtimeParams.fadeSyncMaxFunctionGainDb = Math.max(currentGainDb, 6); // Minimum 6dB for meaningful fading
+
+                        realtimeParams.fadeSyncMaxOutputGainDb = realtimeParams.outputGainDb;
+
+                        console.log(`FadeSync enabled - Function Gain Max captured: ${realtimeParams.fadeSyncMaxFunctionGainDb.toFixed(1)}dB`);
+
+                        // Apply initial FadeSync mix
+                        updateFadeSyncMix();
+                        showStatus('FadeSync enabled - Effects will fade with crossfader position', 'success');
+                    } else {
+                        showStatus('FadeSync disabled - Manual effect control restored', 'info');
                     }
+                });
+            }
 
-                    // Capture current reverb mix maximum
-                    const reverbMixSlider = document.getElementById('reverbMixSlider');
-                    if (reverbMixSlider) {
-                        realtimeParams.fadeSyncMaxReverbMix = parseInt(reverbMixSlider.value) / 100;
-                    }
+            // Setup time sliders for both tracks
+            function setupTimeSliders() {
+                // Track time sliders with proper drag state tracking
+                const timeSliderA = document.getElementById('timeSliderA');
+                if (timeSliderA) {
+                    console.log('Time slider A found, setting up event listeners');
 
-                    console.log('FadeSync maximums captured:', {
-                        transform: realtimeParams.fadeSyncMaxTransformMix,
-                        delay: realtimeParams.fadeSyncMaxDelayMix,
-                        reverb: realtimeParams.fadeSyncMaxReverbMix
+                    // Track drag state with specific events for this slider
+                    const handleMouseDownA = () => {
+                        timeSliderADragging = true;
+                        console.log('Time slider A drag started');
+                    };
+
+                    const handleMouseUpA = () => {
+                        if (timeSliderADragging) {
+                            console.log('Time slider A drag ended');
+                            timeSliderADragging = false;
+                        }
+                    };
+
+                    const handleTouchStartA = () => {
+                        timeSliderADragging = true;
+                        console.log('Time slider A touch started');
+                    };
+
+                    const handleTouchEndA = () => {
+                        if (timeSliderADragging) {
+                            console.log('Time slider A touch ended');
+                            timeSliderADragging = false;
+                        }
+                    };
+
+                    // Add event listeners
+                    timeSliderA.addEventListener('mousedown', handleMouseDownA);
+                    timeSliderA.addEventListener('touchstart', handleTouchStartA);
+
+                    // Use document-level events but check if this specific slider was being dragged
+                    document.addEventListener('mouseup', handleMouseUpA);
+                    document.addEventListener('touchend', handleTouchEndA);
+
+                    // Also handle mouse leave events to ensure drag state is reset
+                    timeSliderA.addEventListener('mouseleave', () => {
+                        if (timeSliderADragging) {
+                            console.log('Time slider A mouse left while dragging - ending drag');
+                            timeSliderADragging = false;
+                        }
                     });
 
-                    // Update mix immediately with captured maximums
-                    updateFadeSyncMix();
+                    timeSliderA.addEventListener('input', function () {
+                        console.log(`Time slider A moved to: ${this.value}, dragging: ${timeSliderADragging}`);
+                        trackPositionA = parseFloat(this.value);
+                        const minutes = Math.floor(trackPositionA / 60);
+                        const seconds = Math.floor(trackPositionA % 60);
+                        document.getElementById('timeValueA').textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+
+                        // Scrub track A to the new position if playing
+                        if (isPlayingA && currentSourceA && audioBufferA) {
+                            console.log(`Scrubbing track A to position: ${trackPositionA}`);
+                            scrubTrack('A', trackPositionA);
+                        }
+                    });
+
+                    // Handle the change event (fires when user releases slider)
+                    timeSliderA.addEventListener('change', function () {
+                        console.log(`Time slider A change event: ${this.value}`);
+                        timeSliderADragging = false; // Ensure drag state is reset
+                    });
+
+                } else {
+                    console.error('Time slider A not found!');
                 }
-            });
 
-            // Track time sliders with proper drag state tracking
-            const timeSliderA = document.getElementById('timeSliderA');
-            if (timeSliderA) {
-                console.log('Time slider A found, setting up event listeners');
+                const timeSliderB = document.getElementById('timeSliderB');
+                if (timeSliderB) {
+                    console.log('Time slider B found, setting up event listeners');
 
-                // Track drag state with specific events for this slider
-                const handleMouseDownA = () => {
-                    timeSliderADragging = true;
-                    console.log('Time slider A drag started');
-                };
+                    // Track drag state with specific events for this slider
+                    const handleMouseDownB = () => {
+                        timeSliderBDragging = true;
+                        console.log('Time slider B drag started');
+                    };
 
-                const handleMouseUpA = () => {
-                    if (timeSliderADragging) {
-                        console.log('Time slider A drag ended');
-                        timeSliderADragging = false;
-                    }
-                };
+                    const handleMouseUpB = () => {
+                        if (timeSliderBDragging) {
+                            console.log('Time slider B drag ended');
+                            timeSliderBDragging = false;
+                        }
+                    };
 
-                const handleTouchStartA = () => {
-                    timeSliderADragging = true;
-                    console.log('Time slider A touch started');
-                };
+                    const handleTouchStartB = () => {
+                        timeSliderBDragging = true;
+                        console.log('Time slider B touch started');
+                    };
 
-                const handleTouchEndA = () => {
-                    if (timeSliderADragging) {
-                        console.log('Time slider A touch ended');
-                        timeSliderADragging = false;
-                    }
-                };
+                    const handleTouchEndB = () => {
+                        if (timeSliderBDragging) {
+                            console.log('Time slider B touch ended');
+                            timeSliderBDragging = false;
+                        }
+                    };
 
-                // Add event listeners
-                timeSliderA.addEventListener('mousedown', handleMouseDownA);
-                timeSliderA.addEventListener('touchstart', handleTouchStartA);
+                    // Add event listeners
+                    timeSliderB.addEventListener('mousedown', handleMouseDownB);
+                    timeSliderB.addEventListener('touchstart', handleTouchStartB);
 
-                // Use document-level events but check if this specific slider was being dragged
-                document.addEventListener('mouseup', handleMouseUpA);
-                document.addEventListener('touchend', handleTouchEndA);
+                    // Use document-level events but check if this specific slider was being dragged
+                    document.addEventListener('mouseup', handleMouseUpB);
+                    document.addEventListener('touchend', handleTouchEndB);
 
-                // Also handle mouse leave events to ensure drag state is reset
-                timeSliderA.addEventListener('mouseleave', () => {
-                    if (timeSliderADragging) {
-                        console.log('Time slider A mouse left while dragging - ending drag');
-                        timeSliderADragging = false;
-                    }
-                });
+                    // Also handle mouse leave events to ensure drag state is reset
+                    timeSliderB.addEventListener('mouseleave', () => {
+                        if (timeSliderBDragging) {
+                            console.log('Time slider B mouse left while dragging - ending drag');
+                            timeSliderBDragging = false;
+                        }
+                    });
 
-                timeSliderA.addEventListener('input', function () {
-                    console.log(`Time slider A moved to: ${this.value}, dragging: ${timeSliderADragging}`);
-                    trackPositionA = parseFloat(this.value);
-                    const minutes = Math.floor(trackPositionA / 60);
-                    const seconds = Math.floor(trackPositionA % 60);
-                    document.getElementById('timeValueA').textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+                    timeSliderB.addEventListener('input', function () {
+                        console.log(`Time slider B moved to: ${this.value}, dragging: ${timeSliderBDragging}`);
+                        trackPositionB = parseFloat(this.value);
+                        const minutes = Math.floor(trackPositionB / 60);
+                        const seconds = Math.floor(trackPositionB % 60);
+                        document.getElementById('timeValueB').textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
 
-                    // Scrub track A to the new position if playing
-                    if (isPlayingA && currentSourceA && audioBufferA) {
-                        console.log(`Scrubbing track A to position: ${trackPositionA}`);
-                        scrubTrack('A', trackPositionA);
-                    }
-                });
+                        // Scrub track B to the new position if playing
+                        if (isPlayingB && currentSourceB && audioBufferB) {
+                            console.log(`Scrubbing track B to position: ${trackPositionB}`);
+                            scrubTrack('B', trackPositionB);
+                        }
+                    });
 
-                // Handle the change event (fires when user releases slider)
-                timeSliderA.addEventListener('change', function () {
-                    console.log(`Time slider A change event: ${this.value}`);
-                    timeSliderADragging = false; // Ensure drag state is reset
-                });
+                    // Handle the change event (fires when user releases slider)
+                    timeSliderB.addEventListener('change', function () {
+                        console.log(`Time slider B change event: ${this.value}`);
+                        timeSliderBDragging = false; // Ensure drag state is reset
+                    });
 
-            } else {
-                console.error('Time slider A not found!');
-            }
-
-            const timeSliderB = document.getElementById('timeSliderB');
-            if (timeSliderB) {
-                console.log('Time slider B found, setting up event listeners');
-
-                // Track drag state with specific events for this slider
-                const handleMouseDownB = () => {
-                    timeSliderBDragging = true;
-                    console.log('Time slider B drag started');
-                };
-
-                const handleMouseUpB = () => {
-                    if (timeSliderBDragging) {
-                        console.log('Time slider B drag ended');
-                        timeSliderBDragging = false;
-                    }
-                };
-
-                const handleTouchStartB = () => {
-                    timeSliderBDragging = true;
-                    console.log('Time slider B touch started');
-                };
-
-                const handleTouchEndB = () => {
-                    if (timeSliderBDragging) {
-                        console.log('Time slider B touch ended');
-                        timeSliderBDragging = false;
-                    }
-                };
-
-                // Add event listeners
-                timeSliderB.addEventListener('mousedown', handleMouseDownB);
-                timeSliderB.addEventListener('touchstart', handleTouchStartB);
-
-                // Use document-level events but check if this specific slider was being dragged
-                document.addEventListener('mouseup', handleMouseUpB);
-                document.addEventListener('touchend', handleTouchEndB);
-
-                // Also handle mouse leave events to ensure drag state is reset
-                timeSliderB.addEventListener('mouseleave', () => {
-                    if (timeSliderBDragging) {
-                        console.log('Time slider B mouse left while dragging - ending drag');
-                        timeSliderBDragging = false;
-                    }
-                });
-
-                timeSliderB.addEventListener('input', function () {
-                    console.log(`Time slider B moved to: ${this.value}, dragging: ${timeSliderBDragging}`);
-                    trackPositionB = parseFloat(this.value);
-                    const minutes = Math.floor(trackPositionB / 60);
-                    const seconds = Math.floor(trackPositionB % 60);
-                    document.getElementById('timeValueB').textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
-
-                    // Scrub track B to the new position if playing
-                    if (isPlayingB && currentSourceB && audioBufferB) {
-                        console.log(`Scrubbing track B to position: ${trackPositionB}`);
-                        scrubTrack('B', trackPositionB);
-                    }
-                });
-
-                // Handle the change event (fires when user releases slider)
-                timeSliderB.addEventListener('change', function () {
-                    console.log(`Time slider B change event: ${this.value}`);
-                    timeSliderBDragging = false; // Ensure drag state is reset
-                });
-
-            } else {
-                console.error('Time slider B not found!');
-            }
+                } else {
+                    console.error('Time slider B not found!');
+                }
+            } // End setupTimeSliders function
 
             // Crossfader modulation sync function (deprecated - now using FadeSync)
             function updateCrossfaderModulation() {
@@ -4798,6 +5478,7 @@
             initFunctionSelect();
             initSliders();
             setupDualTrackFileInputs(); // Updated for dual track system
+            setupTimeSliders(); // Setup time sliders for track scrubbing
             setupVisualization();
             setupFilterControls();
 
