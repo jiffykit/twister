@@ -972,6 +972,14 @@
                         <input type="range" id="timeSliderA" min="0" max="100" step="0.1" value="0"
                             style="height: 4px;">
                     </div>
+
+                    <!-- Input Gain Slider Row -->
+                    <div class="compact-control" style="margin-top: 4px;">
+                        <label for="inputGainSliderA" style="font-size: 0.75em;">Gain A: <span class="value-display"
+                                id="inputGainValueA">+0.0dB</span></label>
+                        <input type="range" id="inputGainSliderA" min="-60" max="12" step="0.1" value="0"
+                            style="height: 4px;">
+                    </div>
                 </div>
 
                 <!-- Track B -->
@@ -1001,6 +1009,14 @@
                         <label for="timeSliderB" style="font-size: 0.75em;">Time B: <span class="value-display"
                                 id="timeValueB">0:00</span></label>
                         <input type="range" id="timeSliderB" min="0" max="100" step="0.1" value="0"
+                            style="height: 4px;">
+                    </div>
+
+                    <!-- Input Gain Slider Row -->
+                    <div class="compact-control" style="margin-top: 4px;">
+                        <label for="inputGainSliderB" style="font-size: 0.75em;">Gain B: <span class="value-display"
+                                id="inputGainValueB">+0.0dB</span></label>
+                        <input type="range" id="inputGainSliderB" min="-60" max="12" step="0.1" value="0"
                             style="height: 4px;">
                     </div>
                 </div>
@@ -1300,9 +1316,10 @@
         let timeSliderBDragging = false;
 
         // Crossfader variables
-        let crossfaderValue = 50; // 0 = A only, 50 = equal mix, 100 = B only
+        let crossfaderValue = 0; // 0 = A only, 50 = equal mix, 100 = B only
         let fadeSyncEnabled = false;
         let mixerGainNodeA, mixerGainNodeB, mixerOutputNode;
+        let inputGainNodeA, inputGainNodeB; // Input gain nodes for each track
 
         // Effects chain nodes
         let delayNode;
@@ -1350,6 +1367,12 @@
             fadeSyncEnabled: false,  // Whether effects fade with crossfader mix
             crossfaderGainA: 0.5,    // Calculated gain for track A
             crossfaderGainB: 0.5,    // Calculated gain for track B
+
+            // Input gain parameters for each track
+            inputGainA: 1.0,         // Input gain for track A (linear, 0-4)
+            inputGainB: 1.0,         // Input gain for track B (linear, 0-4)
+            inputGainADb: 0.0,       // Input gain for track A in dB (-∞ to +12dB)
+            inputGainBDb: 0.0,       // Input gain for track B in dB (-∞ to +12dB)
 
             // FadeSync maximum values (captured when FadeSync is enabled)
             fadeSyncMaxTransformMix: 1.0,  // Maximum transform mix for FadeSync
@@ -4275,6 +4298,46 @@
                         }
                     },
 
+                    // Input gain control for Track A (-∞ to +12dB)
+                    inputGainSliderA: (val) => {
+                        const gainDb = parseFloat(val);
+                        let displayText;
+                        if (gainDb <= -60) {
+                            displayText = '-∞dB';
+                            realtimeParams.inputGainADb = -Infinity;
+                            realtimeParams.inputGainA = 0;
+                        } else {
+                            displayText = `${gainDb >= 0 ? '+' : ''}${gainDb.toFixed(1)}dB`;
+                            realtimeParams.inputGainADb = gainDb;
+                            realtimeParams.inputGainA = Math.pow(10, gainDb / 20);
+                        }
+                        document.getElementById('inputGainValueA').textContent = displayText;
+
+                        if (inputGainNodeA) {
+                            inputGainNodeA.gain.setTargetAtTime(realtimeParams.inputGainA, ctx.currentTime, 0.01);
+                        }
+                    },
+
+                    // Input gain control for Track B (-∞ to +12dB)
+                    inputGainSliderB: (val) => {
+                        const gainDb = parseFloat(val);
+                        let displayText;
+                        if (gainDb <= -60) {
+                            displayText = '-∞dB';
+                            realtimeParams.inputGainBDb = -Infinity;
+                            realtimeParams.inputGainB = 0;
+                        } else {
+                            displayText = `${gainDb >= 0 ? '+' : ''}${gainDb.toFixed(1)}dB`;
+                            realtimeParams.inputGainBDb = gainDb;
+                            realtimeParams.inputGainB = Math.pow(10, gainDb / 20);
+                        }
+                        document.getElementById('inputGainValueB').textContent = displayText;
+
+                        if (inputGainNodeB) {
+                            inputGainNodeB.gain.setTargetAtTime(realtimeParams.inputGainB, ctx.currentTime, 0.01);
+                        }
+                    },
+
                     // Delay filter controls are now handled by dual-handle sliders in setupFilterControls
 
                     // Reverb filter controls are now handled by dual-handle sliders in setupFilterControls
@@ -4359,6 +4422,28 @@
                                 document.getElementById('outputGainValue').textContent = `${gainDb >= 0 ? '+' : ''}${gainDb.toFixed(1)}dB`;
                                 realtimeParams.outputGainDb = gainDb;
                                 realtimeParams.finalOutputGain = Math.pow(10, gainDb / 20);
+                            }
+                        } else if (id === 'inputGainSliderA') {
+                            const gainDb = parseFloat(currentValue);
+                            if (gainDb <= -60) {
+                                document.getElementById('inputGainValueA').textContent = '-∞dB';
+                                realtimeParams.inputGainADb = -Infinity;
+                                realtimeParams.inputGainA = 0;
+                            } else {
+                                document.getElementById('inputGainValueA').textContent = `${gainDb >= 0 ? '+' : ''}${gainDb.toFixed(1)}dB`;
+                                realtimeParams.inputGainADb = gainDb;
+                                realtimeParams.inputGainA = Math.pow(10, gainDb / 20);
+                            }
+                        } else if (id === 'inputGainSliderB') {
+                            const gainDb = parseFloat(currentValue);
+                            if (gainDb <= -60) {
+                                document.getElementById('inputGainValueB').textContent = '-∞dB';
+                                realtimeParams.inputGainBDb = -Infinity;
+                                realtimeParams.inputGainB = 0;
+                            } else {
+                                document.getElementById('inputGainValueB').textContent = `${gainDb >= 0 ? '+' : ''}${gainDb.toFixed(1)}dB`;
+                                realtimeParams.inputGainBDb = gainDb;
+                                realtimeParams.inputGainB = Math.pow(10, gainDb / 20);
                             }
                         }
                         // Delay and reverb filter initialization is now handled by setupFilterControls
@@ -4744,13 +4829,13 @@
                     // Get current track position
                     const startPosition = track === 'A' ? trackPositionA : trackPositionB;
 
-                    // Connect to appropriate mixer channel
+                    // Connect to appropriate input gain channel
                     if (track === 'A') {
                         if (currentSourceA) {
                             currentSourceA.stop();
                         }
                         currentSourceA = source;
-                        source.connect(mixerGainNodeA);
+                        source.connect(inputGainNodeA);
                         isPlayingA = true;
                         trackStartTimeA = ctx.currentTime - startPosition;
 
@@ -4763,7 +4848,7 @@
                             currentSourceB.stop();
                         }
                         currentSourceB = source;
-                        source.connect(mixerGainNodeB);
+                        source.connect(inputGainNodeB);
                         isPlayingB = true;
                         trackStartTimeB = ctx.currentTime - startPosition;
 
@@ -4897,7 +4982,7 @@
                         const newSource = ctx.createBufferSource();
                         newSource.buffer = audioBufferA;
                         newSource.loop = true;
-                        newSource.connect(mixerGainNodeA);
+                        newSource.connect(inputGainNodeA);
 
                         // Start from the scrubbed position
                         newSource.start(0, position);
@@ -4927,7 +5012,7 @@
                         const newSource = ctx.createBufferSource();
                         newSource.buffer = audioBufferB;
                         newSource.loop = true;
-                        newSource.connect(mixerGainNodeB);
+                        newSource.connect(inputGainNodeB);
 
                         // Start from the scrubbed position
                         newSource.start(0, position);
@@ -4967,8 +5052,20 @@
                     mixerGainNodeB = ctx.createGain();
                     mixerOutputNode = ctx.createGain();
 
+                    // Create input gain nodes
+                    inputGainNodeA = ctx.createGain();
+                    inputGainNodeB = ctx.createGain();
+
+                    // Set initial input gains
+                    inputGainNodeA.gain.setValueAtTime(realtimeParams.inputGainA, ctx.currentTime);
+                    inputGainNodeB.gain.setValueAtTime(realtimeParams.inputGainB, ctx.currentTime);
+
                     // Update crossfader gains
                     updateCrossfaderGains();
+
+                    // Connect input gain nodes to mixer nodes
+                    inputGainNodeA.connect(mixerGainNodeA);
+                    inputGainNodeB.connect(mixerGainNodeB);
 
                     // Connect mixer
                     mixerGainNodeA.connect(mixerOutputNode);
@@ -5015,8 +5112,8 @@
                     finalOutputGainNode.gain.setValueAtTime(realtimeParams.finalOutputGain, ctx.currentTime);
 
                     compressorNode = ctx.createDynamicsCompressor();
-                    compressorNode.threshold.setValueAtTime(-0.1, ctx.currentTime);
-                    compressorNode.knee.setValueAtTime(0, ctx.currentTime);
+                    compressorNode.threshold.setValueAtTime(-0.5, ctx.currentTime);
+                    compressorNode.knee.setValueAtTime(1, ctx.currentTime);
                     compressorNode.ratio.setValueAtTime(20, ctx.currentTime);
                     compressorNode.attack.setValueAtTime(0.001, ctx.currentTime);
                     compressorNode.release.setValueAtTime(0.01, ctx.currentTime);
@@ -5121,7 +5218,7 @@
                 [delayNode, delayFeedbackNode, delayWetGainNode, delayDryGainNode,
                     reverbNode, reverbWetGainNode, reverbDryGainNode,
                     finalOutputGainNode, compressorNode, inputLufsAnalyser, outputLufsAnalyser,
-                    mixerGainNodeA, mixerGainNodeB, mixerOutputNode].forEach(node => {
+                    mixerGainNodeA, mixerGainNodeB, mixerOutputNode, inputGainNodeA, inputGainNodeB].forEach(node => {
                         if (node) {
                             node.disconnect();
                         }
